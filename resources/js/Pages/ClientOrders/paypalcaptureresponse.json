@@ -1,0 +1,94 @@
+{
+    "id": "4B602479VX451812P",
+    "status": "COMPLETED",
+    "payment_source": {
+        "paypal": {
+            "email_address": "sb-phmem3215996@personal.example.com",
+            "account_id": "B9PNCKG54G734",
+            "name": {
+                "given_name": "John",
+                "surname": "Doe"
+            },
+            "address": {
+                "country_code": "KE"
+            }
+        }
+    },
+    "purchase_units": {
+        "0": {
+            "reference_id": "default",
+            "shipping": {
+                "name": {
+                    "full_name": "John Doe"
+                },
+                "address": {
+                    "address_line_1": "Free Trade Zone",
+                    "admin_area_2": "Nairobi",
+                    "postal_code": "254",
+                    "country_code": "KE"
+                }
+            },
+            "payments": {
+                "captures": {
+                    "0": {
+                        "id": "7JK00475AN5735505",
+                        "status": "PENDING",
+                        "status_details": {
+                            "reason": "RECEIVING_PREFERENCE_MANDATES_MANUAL_ACTION"
+                        },
+                        "amount": {
+                            "currency_code": "GBP",
+                            "value": "11.57"
+                        },
+                        "final_capture": true,
+                        "seller_protection": {
+                            "status": "ELIGIBLE",
+                            "dispute_categories": {
+                                "0": "ITEM_NOT_RECEIVED",
+                                "1": "UNAUTHORIZED_TRANSACTION"
+                            }
+                        },
+                        "links": {
+                            "0": {
+                                "href": "https://api.sandbox.paypal.com/v2/payments/captures/7JK00475AN5735505",
+                                "rel": "self",
+                                "method": "GET"
+                            },
+                            "1": {
+                                "href": "https://api.sandbox.paypal.com/v2/payments/captures/7JK00475AN5735505/refund",
+                                "rel": "refund",
+                                "method": "POST"
+                            },
+                            "2": {
+                                "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4B602479VX451812P",
+                                "rel": "up",
+                                "method": "GET"
+                            }
+                        },
+                        "create_time": "2023-02-09T03:35:47Z",
+                        "update_time": "2023-02-09T03:35:47Z"
+                    }
+                }
+            }
+        }
+    },
+    "payer": {
+        "name": {
+            "given_name": "John",
+            "surname": "Doe"
+        },
+        "email_address": "sb-phmem3215996@personal.example.com",
+        "payer_id": "B9PNCKG54G734",
+        "address": {
+            "country_code": "KE"
+        }
+    },
+    "links": {
+        "0": {
+            "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4B602479VX451812P",
+            "rel": "self",
+            "method": "GET"
+        }
+    }
+}
+

@@ -1,0 +1,18 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: PlayfairDisplay-Black
+font link: https://fonts.google.com/specimen/Playfair+Display
+font author: Claus Eggers Sørensen
+font author site: https://forthehearts.net/
+
+
+icon designer: junichi hayama
+icon designer link: /hayamac
+        
+
+fontColor: {"hex":"#421E56"}
+bgColor: {"hex":"transparent"}
+iconColor: {"hex":"#421E56"}
+
+      
