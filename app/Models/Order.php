@@ -34,6 +34,11 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function rate(): BelongsTo
+    {
+        return $this->belongsTo(Rate::class);
+    }
+
     public function level(): BelongsTo
     {
         return $this->belongsTo(AcademicLevel::class);
@@ -52,5 +57,30 @@ class Order extends Model
     public function writerCategory(): BelongsTo
     {
         return $this->belongsTo(WriterCategory::class);
+    }
+
+    public function style(): BelongsTo
+    {
+        return $this->belongsTo(ReferencingStyle::class);
+    }
+
+    public function spacing(): BelongsTo
+    {
+        return $this->belongsTo(Spacing::class);
+    }
+
+    public function language(): BelongsTo
+    {
+        return $this->belongsTo(Language::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
+    public function discount(): BelongsTo
+    {
+        return $this->belongsTo(Discount::class);
     }
 }

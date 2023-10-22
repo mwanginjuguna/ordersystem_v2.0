@@ -38,103 +38,39 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         //
         $url = $request->url();
-        if (str_ends_with($url, 'pending')) {
-            // recent or new orders
-            $orders = Order::query()
-                ->where('status', '=', 'pending')
-                ->latest()
-                ->get();
-            $info = [
-                'title' => "Pending Orders: Admin - ".env('WEBSITE_NAME'),
-                'subtitle' => "Pending Orders",
-                'description' => "Orders not paid or on-hold.",
-            ];
-        } elseif (str_ends_with($url, 'recents')) {
-            // new or recent orders
-            $orders = Order::query()
-                ->where('status', '=', 'new')
-                ->latest()
-                ->get();
-            $info = [
-                'title' => "New Orders: Admin - ".env('WEBSITE_NAME'),
-                'subtitle' => "New / Recent Orders",
-                'description' => "Orders recently placed and/or paid. New orders.",
-            ];
-        } elseif (str_ends_with($url, 'submitted')) {
-            // submitted orders
-            $orders = Order::query()
-                ->where('status', '=', 'submitted')
-                ->latest()
-                ->get();
-            $info = [
-                'title' => "Submitted Orders: Admin - ".env('WEBSITE_NAME'),
-                'subtitle' => "Submitted Orders",
-                'description' => "Orders submitted awaiting confirmation.",
-            ];
-        } elseif (str_ends_with($url, 'running')) {
-            // running orders - in progress
-            $orders = Order::query()
-                ->where('status', '=', 'running')
-                ->latest()
-                ->get();
-            $info = [
-                'title' => "Running Orders: Admin - ".env('WEBSITE_NAME'),
-                'subtitle' => "Running Orders",
-                'description' => "Orders in progress.",
-            ];
-        } elseif (str_ends_with($url, 'complete')) {
-            // completed orders
-            $orders = Order::query()
-                ->where('status', '=', 'complete')
-                ->latest()
-                ->get();
-            $info = [
-                'title' => "Completed Orders: Admin - ".env('WEBSITE_NAME'),
-                'subtitle' => "Completed Orders",
-                'description' => "Orders Marked as complete.",
-            ];
-        } elseif (str_ends_with($url, 'revision')) {
-            // orders under revision
-            $orders = Order::query()
-                ->where('status', '=', 'revision')
-                ->latest()
-                ->get();
-            $info = [
-                'title' => "Revision Orders: Admin - ".env('WEBSITE_NAME'),
-                'subtitle' => "Revision Orders",
-                'description' => "Orders under revision.",
-            ];
-        } elseif (str_ends_with($url, 'disputed')) {
-            // disputed orders
-            $orders = Order::query()
-                ->where('status', '=', 'disputed')
-                ->latest()
-                ->get();
-            $info = [
-                'title' => "Disputed Orders: Admin - ".env('WEBSITE_NAME'),
-                'subtitle' => "Disputed Orders",
-                'description' => "Orders with Disputes.",
-            ];
-        } elseif (str_ends_with($url, 'cancelled')) {
-            // cancelled orders
-            $orders = Order::query()
-                ->where('status', '=', 'cancelled')
-                ->latest()
-                ->get();
-            $info = [
-                'title' => "Cancelled Orders: Admin - ".env('WEBSITE_NAME'),
-                'subtitle' => "Cancelled Orders",
-                'description' => "Cancelled orders due to dispute, refund or other issues.",
-            ];
-        } else {
-            $orders = Order::query()->latest()->get();
-        }
+
+        $statusMappings = [
+            "pending" => ['status' => "pending", 'description' => 'Orders not paid or on-hold.'],
+            "recents" => ['status' => "new", 'description' => 'Orders recently placed and/or paid. New orders.'],
+            'submitted' => ['status' => 'submitted', 'description' => 'Orders submitted awaiting confirmation.'],
+            'running' => ['status' => 'running', 'description' => 'Orders in progress.'],
+            'completed' => ['status' => 'complete', 'description' => 'Orders marked as complete.'],
+            'revision' => ['status' => 'revision', 'description' => 'Orders under revision.'],
+            'disputed' => ['status' => 'disputed', 'description' => 'Orders with disputes.'],
+            'cancelled' => ['status' => 'cancelled', 'description' => 'Cancelled orders due to dispute, refund, or other issues.'],
+        ];
+
+        // last part of the url
+        $segment = last(explode('/', $url));
+        $statusInfo = $statusMappings[$segment] ?? null;
+
+        $orders = $statusInfo ? Order::query()->where('status', $statusInfo['status'])
+            ->latest()->get() : Order::query()->latest()->get();
+
+        $segment = $segment === 'recents' ? 'New' : ucfirst($segment);
+
+        $info = $statusInfo ? [
+            'title' => $segment.' Orders: Admin - '. config('app.website_name'),
+            'subtitle' => $segment.' Orders',
+            'description' => $statusInfo['description']
+        ] : [];
 
         return Inertia::render('Admin/OrderList', [
              'orders' => $orders,
@@ -149,20 +85,27 @@ class OrderController extends Controller
      */
     public function create()
     {
+        $relationships = [
+            'levels',
+            'subjects',
+            'services',
+            'rates',
+            'styles',
+            'spacings',
+            'writerCategories',
+            'languages',
+            'currencies',
+            'discounts'
+        ];
+        $data = Order::with($relationships);
+
+        $order = new Order();
+
         // new order form
         return Inertia::render('Orders/OrderNew', [
-            'order' => new Order(),
-            'levels' => AcademicLevel::all(),
-            'subjects' => Subject::all(),
-            'services' => ServiceType::all(),
-            'rates' => Rate::all(),
-            'styles' => ReferencingStyle::all(),
-            'spacings' => Spacing::all(),
-            'writerCategories' => WriterCategory::all(),
-            'extras' => AdditionalFeatures::all(),
-            'languages' => Language::all(),
-            'currencies' => Currency::all(),
-            'discounts' => Discount::query()->where('active', '=', '1')->get(),
+            'order' => $order,
+            'data' => $data,
+            'extras' => AdditionalFeatures::all()
         ]);
 
     }
