@@ -5,13 +5,14 @@ namespace App\Actions\Order;
 use App\Mail\WriterAction;
 use App\Models\Order;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class Revision
 {
 
-    public static function run(Order $order, Request $request)
+    public static function run(Order $order, Request $request): RedirectResponse
     {
         //
         $order->status = "revision";
@@ -29,7 +30,7 @@ class Revision
         }
 
         return redirect()->route('orders.show', [
-            'id' => $id
+            'id' => $order->id
         ])->with('success', 'Revision request received.');
     }
 }

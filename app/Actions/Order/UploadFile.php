@@ -2,20 +2,21 @@
 
 namespace App\Actions\Order;
 
+use App\Actions\Notify\Admin\FileUploaded;
 use App\Models\File;
 use App\Models\Order;
-use App\Models\User;
-use App\Notifications\WriterNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class UploadFile
 {
 
-    public static function run(Order $order, Request $request)
+    /**
+     * upload files in the incoming request
+     */
+    public static function run(Order $order, Request $request): bool
     {
-        foreach ($request->file() as $filer) {
+        foreach ($request->files as $filer) {
             foreach ($filer as $file) {
                 $filename = $order->id.'_'.$file->getClientOriginalName();
                 $newFile = new File([
@@ -28,6 +29,8 @@ class UploadFile
                 $newFile->save();
             }
         }
-        return redirect()->back()->with('success', 'New File Upload was successful.');
+
+        (new FileUploaded($order))->notify();
+        return true;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Notify\Admin\OrderNew;
+use App\Actions\Order\UploadFile;
 use App\Jobs\SendOrderReceivedEmailJob;
 use App\Mail\OrderAction;
 use App\Mail\OrderReceived;
@@ -25,19 +27,21 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ClientOrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return Response
      */
     public function index()
     {
@@ -53,7 +57,7 @@ class ClientOrdersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return Response
      */
     public function pending()
     {
@@ -74,7 +78,7 @@ class ClientOrdersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return Response
      */
     public function recents()
     {
@@ -94,7 +98,7 @@ class ClientOrdersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return Response
      */
     public function submitted()
     {
@@ -114,7 +118,7 @@ class ClientOrdersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return Response
      */
     public function running()
     {
@@ -134,7 +138,7 @@ class ClientOrdersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return Response
      */
     public function completed(Request $request)
     {
@@ -155,7 +159,7 @@ class ClientOrdersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return Response
      */
     public function cancelled()
     {
@@ -176,7 +180,7 @@ class ClientOrdersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return Response
      */
     public function revision()
     {
@@ -196,7 +200,7 @@ class ClientOrdersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return Response
      */
     public function disputed()
     {
@@ -217,9 +221,8 @@ class ClientOrdersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Inertia\Response
      */
-    public function create()
+    public function create(): Response
     {
         // new order form
         return Inertia::render('ClientOrders/OrderNew', [
@@ -268,7 +271,7 @@ class ClientOrdersController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         // validate and save
         $request->validate([
@@ -340,40 +343,16 @@ class ClientOrdersController extends Controller
         $order->save();
 
         // save order files
-        foreach ($request->file() as $filer) {
-            foreach ($filer as $file) {
-                $filename = auth()->id().'_'.$file->getClientOriginalName();
-                $newFile = new File([
-                    'order_id' => $order->id,
-                    'name' => $filename,
-                    'location' => Storage::putFileAs('orders', $file, $filename ),
-                    'uploaded_by' => \auth()->user()->role
-                ]);
-                $newFile->save();
-                }
-
-        }
+        (new UploadFile())->run(order: $order, request: $request);
 
         // send emails
-        $notifyAdmin = [
-            'orderId' => $order->id,
-            'username' => auth()->user()->name,
-            'title' => 'A New Order has been Placed.',
-            'content' => 'A new Order has been placed. Order #'.$order->id.' by '.auth()->user()->name.'.',
-            'url' => route('orders.show', $order->id),
-            'action' => 'View Order'
-        ];
-
-        $admin = User::query()->where('role', '=', 'A')->first();
-
-        $admin->notify(new AdminNotification($notifyAdmin));
+        (new OrderNew($order))->notify();
 
         Mail::to($request->user())->queue(
             mailable: new OrderReceived($order)
         );
 
         // dispatch(new SendOrderReceivedEmailJob(user: $request->user(), order: $order));
-
         if (auth()->user()->role === 'A') {
             return redirect()->route('admin.orders.pending')->with('success', 'Order added successfully');
         }
@@ -387,7 +366,7 @@ class ClientOrdersController extends Controller
      * Display the payment checkout page for an order.
      *
      * @param  int  $id
-     * @return \Inertia\Response
+     * @return Response
      */
     public function preview($id)
     {
@@ -488,7 +467,7 @@ class ClientOrdersController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Inertia\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -609,34 +588,11 @@ class ClientOrdersController extends Controller
      * @param  int  $id
      * @return RedirectResponse
      */
-    public function uploadFiles(Request $request, $id)
+    public function uploadFiles(Request $request, $id): RedirectResponse
     {
         $order = Order::findOrFail($id);
-        foreach ($request->file() as $filer) {
-            foreach ($filer as $file) {
-                $filename = auth()->id().'_'.$file->getClientOriginalName();
-                $newFile = new File([
-                    'order_id' => $order->id,
-                    'type' => 'OrderFile',
-                    'name' => $filename,
-                    'location' => Storage::putFileAs('orders', $file, $filename ),
-                    'uploaded_by' => \auth()->user()->role
-                ]);
-                $newFile->save();
-            }
-        }
 
-        $notifyAdmin = [
-            'orderId' => $order->id,
-            'username' => auth()->user()->name,
-            'title' => 'New File Upload on Order #'.$order->id,
-            'content' => 'A file has been uploaded on Order #'.$order->id.' by '.auth()->user()->name.'.',
-            'url' => route('orders.show', $order->id),
-            'action' => 'View Order'
-        ];
-        $admin = User::query()->where('role', '=', 'A')->first();
-
-        $admin->notify(new AdminNotification($notifyAdmin));
+        (new UploadFile())->run(order: $order, request: $request);
 
         return redirect()->back()->with('success', 'New File Upload was successful.');
     }

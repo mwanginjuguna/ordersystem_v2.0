@@ -28,6 +28,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -85,27 +86,39 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $relationships = [
-            'levels',
-            'subjects',
-            'services',
-            'rates',
-            'styles',
-            'spacings',
-            'writerCategories',
-            'languages',
-            'currencies',
-            'discounts'
-        ];
-        $data = Order::with($relationships);
+//        $relationships = [
+//            'levels',
+//            'subjects',
+//            'services',
+//            'rates',
+//            'styles',
+//            'spacings',
+//            'writerCategories',
+//            'languages',
+//            'currencies',
+//            'discounts'
+//        ];
+//        $data = Order::with($relationships);
+        $dbQuery = DB::query()
+            ->from('academic_levels', 'levels')
+            ->from('subjects', 'subjects')
+            ->from('service_types', 'services')
+            ->from('rates', 'rates')
+            ->from('referencing_styles', 'styles')
+            ->from('spacings', 'spacings')
+            ->from('writer_categories', 'writerCategories')
+            ->from('languages', 'languages')
+            ->from('currencies', 'currencies')
+            ->from('discounts', 'discounts')
+            ->from('additional_features', 'extras')
+            ->get();
 
         $order = new Order();
 
         // new order form
         return Inertia::render('Orders/OrderNew', [
             'order' => $order,
-            'data' => $data,
-            'extras' => AdditionalFeatures::all()
+            'data' => $dbQuery
         ]);
 
     }
