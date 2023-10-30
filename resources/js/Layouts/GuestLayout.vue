@@ -133,12 +133,23 @@ defineProps({
                     <ResponsiveNavLink :href="route('home')" :active="route().current('home')">
                         Home
                     </ResponsiveNavLink>
-                    <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                        Dashboard
-                    </ResponsiveNavLink>
-                    <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                        My Orders
-                    </ResponsiveNavLink>
+                    <template v-if="$page.props.auth.user">
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                            Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                            My Orders
+                        </ResponsiveNavLink>
+                    </template>
+                    <template v-else>
+                        <ResponsiveNavLink :href="route('login')" :active="route().current('login')">
+                            Login
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('register')" :active="route().current('register')">
+                            Register
+                        </ResponsiveNavLink>
+                    </template>
+
                     <ResponsiveNavLink :href="route('orders.new')" :active="route().current('orders.new')">
                         New Order
                     </ResponsiveNavLink>

@@ -31,7 +31,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Case Study Pro" />
+    <Head :about="`Free up some time in your day. Our team of talented and experienced writers will work on your coursework, homework assignments, custom writing, editing, and research tasks as you spend time in other important activities.`" :title="$page.props.websiteName ?? `Case Study Pro`" />
     <GuestLayout>
         <div
             class="relative min-h-screen bg-gray-50 sm:pt-0"
@@ -40,21 +40,22 @@ defineProps({
                 <!-- hero section -->
                 <div class="max-w-7xl grid lg:grid-cols-3 h-full pt-8 sm:pt-0 gap-2">
                     <div class="pb-10 px-8 lg:col-span-2">
-                        <h1 class="text-center lg:text-left text-3xl  lg:text-5xl text-slate-700 font-extrabold font-serif uppercase">Case Study Pro</h1>
+                        <h1 class="text-center lg:text-left text-3xl  lg:text-5xl text-slate-700 font-extrabold font-serif uppercase">
+                            {{ $page.props.websiteName ?? "Case Study Pro" }}
+                        </h1>
 
-                        <p class="mt-9 md:py-2 px-4 text-justify text-slate-600 font-medium text-xl border-l-4">
-                            Looking for case study writing assistance? Our team of talented and experienced writers can help with custom writing, editing, and research services. <br>
-                            Our case study writers, analysts, and researchers are Ph.D. experts dedicated to providing technical case study help across the world.
+                        <p class="mt-9 md:py-2 px-4 text-justify text-slate-600 font-medium md:text-xl border-l-4">
+                            Free up some time in your day. Our team of talented and experienced writers will work on your coursework, homework assignments, custom writing, editing, and research tasks as you spend time in other important activities.
                         </p>
 
                         <button type="submit" class="mt-9 mb-4 p-2 bg-purple-600 hover:bg-purple-700 text-slate-50 rounded-md text-xl font-bold font-serif flex flex-row">
-                            Write My Case Study
+                            Write My Paper
                             <span id="blinking-cursor" class="text-sm pl-1">|</span>
                         </button>
 
                         <div class="mt-9">
-                            <p class="text-slate-600 text-lg font-medium">We have served <span class="text-xl font-bold text-purple-900">450+</span> happy customers.</p>
-                            <p class="mt-3 text-purple-500 font-semibold underline underline-offset-4">Starts at $14.00 per page (275 words)</p>
+                            <p class="text-slate-600 text-lg font-medium">We have served <span class="text-xl font-bold text-purple-900">1450+</span> happy customers.</p>
+                            <p class="mt-3 text-purple-500 font-semibold underline underline-offset-4">Starts at $10.00 per page (275 words)</p>
                         </div>
 
                         <!--stats-->
@@ -66,7 +67,7 @@ defineProps({
 
                                 <div>
                                     <p class="pb-1 border-b border-purple-200 w-full text-base font-semibold text-slate-700">
-                                        200+ Returning Customers
+                                        1200+ Returning Customers
                                     </p>
                                     <p><strong>Tested and Trusted</strong> by over 200 individuals and businesses.</p>
                                 </div>
@@ -77,10 +78,10 @@ defineProps({
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle style="fill:#4d277c;" cx="256" cy="256" r="256"></circle> <path style="fill:#3a0e5d;" d="M304.752,507.344c114.907-22.157,202.435-121.135,207.038-241.385L399.563,153.733l-47.599,59.001 L202.842,236.18l-59.318-59.318l-19.463,10.988l54.074,54.074L49.931,252.523L304.752,507.344z"></path> <path style="fill:#FFEDB5;" d="M131.036,180.874l14.72,5.584c9.037,3.427,18.694,4.918,28.344,4.377l72.607-4.079l134.066,117.65 c5.172,4.539,4.858,12.685-0.646,16.813l-2.236,1.676c-3.943,2.956-9.383,2.881-13.241-0.184l-95.661-75.991 c-1.526-1.212-3.718-1.088-5.098,0.291l-1.458,1.458c-1.6,1.6-1.474,4.232,0.272,5.672l76.436,62.997 c5.042,4.156,5.287,11.797,0.519,16.267l0,0c-3.863,3.622-9.778,3.92-13.986,0.707l-80.951-61.802 c-1.633-1.246-3.958-0.984-5.273,0.593l0,0c-1.391,1.67-1.119,4.163,0.603,5.491l64.872,50.055 c5.701,4.399,5.604,13.031-0.191,17.303l-0.586,0.431c-3.843,2.832-9.087,2.815-12.91-0.041l-66.127-49.381 c-1.633-1.221-3.936-0.948-5.241,0.617l-0.007,0.009c-1.398,1.679-1.115,4.184,0.624,5.508l44.863,34.126 c5.017,3.815,5.73,11.09,1.552,15.808l-1.583,1.788c-3.415,3.856-9.075,4.775-13.534,2.196L89.864,263.215L131.036,180.874z"></path> <path style="fill:#FEE187;" d="M89.865,263.216l161.921,93.596c4.46,2.577,10.119,1.66,13.534-2.196l1.583-1.788 c4.179-4.718,3.465-11.993-1.552-15.808l-44.863-34.126c-1.739-1.322-2.022-3.829-0.624-5.508l0.007-0.009 c1.305-1.565,3.606-1.838,5.241-0.617l66.127,49.381c3.825,2.857,9.068,2.874,12.91,0.041l0.586-0.431 c0.105-0.078,0.195-0.167,0.297-0.247L120.16,202.628L89.865,263.216z"></path> <path style="fill:#FFC61B;" d="M390.808,174.013l44.111,81.361l-62.736,41.662l-102.928-89.695l-64.424,24.91 c-5.587,2.16-11.912,1.024-16.4-2.944l0,0c-8.613-7.618-6.637-21.559,3.753-26.486l85.685-40.627 c3.853-1.827,8.325-1.82,12.173,0.017l50.853,24.288c5.603,2.676,12.033,3.041,17.903,1.017L390.808,174.013z"></path> <polygon style="fill:#EAA22F;" points="330.733,260.915 372.183,297.036 434.919,255.374 411.393,211.98 "></polygon> <rect x="73.192" y="159.309" transform="matrix(-0.8827 -0.47 0.47 -0.8827 81.1817 449.6475)" style="fill:#FF7F4F;" width="47.047" height="110.764"></rect> <g> <polygon style="fill:#D35933;" points="49.931,252.523 91.464,274.637 117.763,225.242 77.112,201.476 "></polygon> <rect x="387.872" y="157.36" transform="matrix(0.8256 -0.5643 0.5643 0.8256 -48.2914 269.2509)" style="fill:#D35933;" width="47.047" height="110.764"></rect> </g> <polygon style="fill:#B54324;" points="462.069,245.182 431.173,199.98 390.885,224.422 423.222,271.734 "></polygon> </g></svg>
                                 <div>
                                     <p class="pb-1 border-b border-purple-200 w-full text-base font-semibold text-slate-700">
-                                        7K+ Approved Case Studies
+                                        7K+ Approved Tasks
                                     </p>
                                     <p>
-                                        Professional case studies delivered to our esteemed customers. We are <em>Growing Fast!</em>
+                                        Professional papers and tasks delivered ON-TIME to our esteemed customers. We are <em>Growing Fast!</em>
                                     </p>
                                 </div>
                             </div>
@@ -93,7 +94,7 @@ defineProps({
                                         3.1k+ Average Monthly Users
                                     </p>
                                     <p>
-                                        Our case study services have a global audience of more than 3K readers and customers.
+                                        Our services have a global audience of more than 3K readers and customers.
                                     </p>
                                 </div>
                             </div>
@@ -106,7 +107,7 @@ defineProps({
                                         57 Top Writers and Analysts
                                     </p>
                                     <p>
-                                        A diverse team of Talented Writers and Researchers 13 countries collaborating remotely.
+                                        Relax and let our professional experts take care of your pressing tasks.
                                     </p>
                                 </div>
                             </div>
@@ -127,10 +128,10 @@ defineProps({
                 </div>
 
                 <!--our sercices-->
-                <div class="lg:mt-16 mt-36 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                <div class="lg:mt-16 mt-36 bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6 my-auto">
-                            <h2 class="pb-10 text-slate-800 font-extrabold text-4xl lg:text-[4rem] font-serif">
+                            <h2 class="pb-10 text-slate-50 font-extrabold text-4xl lg:text-[4rem] font-serif">
                                 Our Services
                             </h2>
                             <div class="pb-3 flex flex-row gap-4">
@@ -149,47 +150,48 @@ defineProps({
                                 </svg>
                                 <div class="ml-4 text-lg leading-7 font-semibold">
                                     <a href="orders/new" class="underline text-gray-900 dark:text-white"
-                                    >Professional Research and Writing Case Study Services</a
+                                    >Professional Research and Writing Services</a
                                     >
                                 </div>
                             </div>
 
                             <div class="mt-3">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Our services are academic-based, specifically designed to help students with homework and assignments from school. We diversify these services into three major groups.
+                                    No task should overwhelm you. By getting assistance from out experts, academic and school work is in safe hands to guarantee top grades. We also help you with business writing and personal activities including technical writing, data analysis, and programming/coding tasks.
                                 </div>
                             </div>
                         </div>
 
                         <div class="border">
                             <div class="grid divide-y divide-purple-300">
-                                <div class="grid grid-cols-5 p-1 px-3 bg-gray-100">
+                                <div class="grid md:grid-cols-5 p-1 px-3 bg-gray-100">
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 504 504" xml:space="preserve" height="64px" class="place-self-center" width="64px" fill="#000000">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="26" y="2" style="fill:#ffffff;" width="368" height="496"></rect> <rect x="26" y="2" style="fill:#33A5D2;" width="368" height="68"></rect> <polygon style="fill:#d100ca;" points="483.6,438 462,497.2 440,438 "></polygon> <rect x="438" y="34" style="fill:#5200a3;" width="44" height="404"></rect> <path style="fill:#d100ca;" d="M482,34.8V10.4c0-6.4-4-8.8-10.8-8.8h-18.8c-6.8,0-14.4,2.4-14.4,8.8v24.4H482z"></path> <path d="M392,504H24c-2.4,0-4-1.6-4-4V4c0-2.4,1.6-4,4-4h368c2.4,0,4,1.6,4,4v496C396,502.4,394.4,504,392,504z M28,496h360V8H28 V496z"></path> <path d="M392,76H24c-2.4,0-4-1.6-4-4V4c0-2.4,1.6-4,4-4h368c2.4,0,4,1.6,4,4v68C396,74.4,394.4,76,392,76z M28,68h360V8H28V68z"></path> <path d="M350,148H70c-2.4,0-4-1.6-4-4s1.6-4,4-4h280c2.4,0,4,1.6,4,4S352.4,148,350,148z"></path> <path d="M126,188H70c-2.4,0-4-1.6-4-4s1.6-4,4-4h56c2.4,0,4,1.6,4,4S128.4,188,126,188z"></path> <path d="M350,188H162c-2.4,0-4-1.6-4-4s1.6-4,4-4h188c2.4,0,4,1.6,4,4S352.4,188,350,188z"></path> <path d="M350,228h-32c-2.4,0-4-1.6-4-4s1.6-4,4-4h32c2.4,0,4,1.6,4,4S352.4,228,350,228z"></path> <path d="M282,228H70c-2.4,0-4-1.6-4-4s1.6-4,4-4h212c2.4,0,4,1.6,4,4S284.4,228,282,228z"></path> <path d="M350,268H70c-2.4,0-4-1.6-4-4s1.6-4,4-4h280c2.4,0,4,1.6,4,4S352.4,268,350,268z"></path> <path d="M350,388H70c-2.4,0-4-1.6-4-4s1.6-4,4-4h280c2.4,0,4,1.6,4,4S352.4,388,350,388z"></path> <path d="M126,308H70c-2.4,0-4-1.6-4-4s1.6-4,4-4h56c2.4,0,4,1.6,4,4S128.4,308,126,308z"></path> <path d="M350,308H162c-2.4,0-4-1.6-4-4s1.6-4,4-4h188c2.4,0,4,1.6,4,4S352.4,308,350,308z"></path> <path d="M350,348h-32c-2.4,0-4-1.6-4-4s1.6-4,4-4h32c2.4,0,4,1.6,4,4S352.4,348,350,348z"></path> <path d="M282,348H70c-2.4,0-4-1.6-4-4s1.6-4,4-4h212c2.4,0,4,1.6,4,4S284.4,348,282,348z"></path> <path d="M126,428H70c-2.4,0-4-1.6-4-4s1.6-4,4-4h56c2.4,0,4,1.6,4,4S128.4,428,126,428z"></path> <path d="M350,428H162c-2.4,0-4-1.6-4-4s1.6-4,4-4h188c2.4,0,4,1.6,4,4S352.4,428,350,428z"></path> <path d="M458,498.8c-1.6,0-3.2-1.2-3.6-2.8l-22-59.2c0-0.4-0.4-0.8-0.4-1.2V34c0-2.4,1.6-4,4-4s4,1.6,4,4v400.4l18,48.4l18-48.4V34 c0-2.4,1.6-4,4-4c2.4,0,4,1.6,4,4v401.2c0,0.4,0,0.8-0.4,1.2l-22,59.2C461.2,497.6,459.6,498.8,458,498.8z"></path> <path d="M478,444h-40c-2.4,0-4-1.6-4-4s1.6-4,4-4h40c2.4,0,4,1.6,4,4S480.4,444,478,444z"></path> <path d="M480,42c-2.4,0-4-1.6-4-4V10.8c0-1.2,0-2,0-2.4C475.2,8,472.8,8,471.2,8h-23.6c-7.6,0-7.6,0.8-7.6,2.8V38c0,2.4-1.6,4-4,4 s-4-1.6-4-4V10.8C432,0,442,0,447.6,0h23.6c6.4,0,12.8,0,12.8,10.8V38C484,40.4,482.4,42,480,42z"></path> <path d="M478,40h-40c-2.4,0-4-1.6-4-4s1.6-4,4-4h40c2.4,0,4,1.6,4,4S480.4,40,478,40z"></path> <path d="M466,428h-28c-2.4,0-4-1.6-4-4s1.6-4,4-4h28c2.4,0,4,1.6,4,4S468.4,428,466,428z"></path> </g></svg>
-                                    <div class="mt-2 col-span-4">
+                                    <div class="mt-2 md:col-span-4">
                                         <p class="text-lg lg:text-2xl font-semibold text-purple-900">
-                                            Case Study Writing Service
+                                            Quality Assistance with Schoolwork and Academic Writing
                                         </p>
                                         <p class="py-2">
-                                            Our team of experienced writers is dedicated to crafting high-quality and compelling case studies tailored to meet your specific needs. We understand that a well-written case study can make all the difference in showcasing your expertise, attracting new clients, and boosting your business. With our expertise in various industries, we can effectively communicate your unique value proposition and help you achieve your goals.
+                                            Spend your quality time with your family and friends without having to worry about an upcoming school homework from your class. We use your course readings and other resources provided from your class to craft top-quality solutions for your homework. We assist you deliver professionally written papers and solutions, while meeting deadline and quality expectations from your classes.<br>
+                                            You no longer have to worry about your Essay, Term Papers, Research Papers, Discussion Board, and other Coursework assignments.
                                         </p>
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-5 p-1 px-3 bg-gray-100">
+                                <div class="grid md:grid-cols-5 p-1 px-3 bg-gray-100">
                                     <svg class="place-self-center" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 507.6 507.6" xml:space="preserve" width="64px" height="64px" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
                                         <path style="fill:#EF934A;" d="M461.4,473.6c0,17.6-14.4,28-32,28h-356c-17.6,0-24-10.4-24-28v-396c0-17.6,6.4-32,24-32h356 c17.6,0,32,14.4,32,32V473.6z"></path> <rect x="81.4" y="69.6" style="fill:#F4EFEF;" width="348" height="404"></rect> <path style="fill:#FFC52F;" d="M353.4,89.6V56.8c0-17.6-11.6-31.2-29.2-31.2H283C279.4,13.6,269,6,256.2,6 c-12.4,0-23.2,7.6-26.8,19.6h-41.6c-17.6,0-34.8,13.6-34.8,31.2v32.8H353.4z"></path> <path style="fill:#F4EFEF;" d="M256.6,40.8c-6.8,0-12-5.2-12-12s5.2-12,12-12s12,5.2,12,12S263,40.8,256.6,40.8z"></path> <path d="M427.4,479.6h-348c-2.4,0-4-1.6-4-4v-404c0-2.4,1.6-4,4-4h70c2.4,0,4,1.6,4,4s-1.6,4-4,4h-66v396h340v-396h-70 c-2.4,0-4-1.6-4-4s1.6-4,4-4h74c2.4,0,4,1.6,4,4v404C431.4,477.6,429.8,479.6,427.4,479.6z"></path> <path d="M432.6,507.6h-356c-19.2,0-32.8-14.8-32.8-35.2V77.2c0-20,13.2-33.6,32.8-33.6h73.2c2.4,0,4,1.6,4,4s-1.6,4-4,4H76.6 c-15.2,0-24.8,10-24.8,25.6v395.2c0,16,10.4,27.2,24.8,27.2h356c16.8,0,23.2-14,23.2-27.2V77.2c0-16.4-8.4-25.6-23.2-25.6h-78.8 c-2.4,0-4-1.6-4-4s1.6-4,4-4h78.8c19.2,0,31.2,12.8,31.2,33.6v395.2C463.4,493.6,451.4,507.6,432.6,507.6z"></path> <path d="M256.6,44.8c-8.8,0-16-7.2-16-16s7.2-16,16-16s16,7.2,16,16S265.4,44.8,256.6,44.8z M256.6,20.8c-4.4,0-8,3.6-8,8s3.6,8,8,8 s8-3.6,8-8S261,20.8,256.6,20.8z"></path> <path d="M351.4,91.6h-200c-2.4,0-4-1.6-4-4V52.8c0-20,21.2-33.2,40.8-33.2H227C231.8,7.6,243,0,256.6,0s24.8,7.6,29.6,19.6h38.4 c19.2,0,31.2,12.8,31.2,33.2v34.8C355.4,89.6,353.8,91.6,351.4,91.6z M155.4,83.6h192V52.8c0-16-8.4-25.2-23.2-25.2H283 c-1.6,0-3.2-1.2-4-2.8C276.2,14.4,267,8,256.2,8s-20,6.4-22.8,16.8c-0.4,1.6-2,2.8-4,2.8h-41.6c-16,0-32.8,10-32.8,25.2v30.8H155.4z "></path> <path d="M390.6,195.6h-164c-2.4,0-4-1.6-4-4s1.6-4,4-4h164c2.4,0,4,1.6,4,4S393,195.6,390.6,195.6z"></path> <path d="M274.6,259.6h-48c-2.4,0-4-1.6-4-4s1.6-4,4-4h48c2.4,0,4,1.6,4,4S277,259.6,274.6,259.6z"></path> <path d="M390.6,259.6h-80c-2.4,0-4-1.6-4-4s1.6-4,4-4h80c2.4,0,4,1.6,4,4S393,259.6,390.6,259.6z"></path> <path d="M390.6,387.6h-48c-2.4,0-4-1.6-4-4s1.6-4,4-4h48c2.4,0,4,1.6,4,4S393,387.6,390.6,387.6z"></path> <path d="M306.6,387.6h-80c-2.4,0-4-1.6-4-4s1.6-4,4-4h80c2.4,0,4,1.6,4,4S309,387.6,306.6,387.6z"></path> <path d="M390.6,323.6h-164c-2.4,0-4-1.6-4-4s1.6-4,4-4h164c2.4,0,4,1.6,4,4S393,323.6,390.6,323.6z"></path> <path d="M157,205.2c-1.2,0-2-0.4-2.8-1.2l-19.6-19.6c-1.6-1.6-1.6-4,0-5.6s4-1.6,5.6,0l16.8,16.8l33.2-33.2c1.6-1.6,4-1.6,5.6,0 s1.6,4,0,5.6l-36,36C159,204.8,158.2,205.2,157,205.2z"></path> <path d="M157,269.2c-1.2,0-2-0.4-2.8-1.2l-19.6-19.6c-1.6-1.6-1.6-4,0-5.6s4-1.6,5.6,0l16.8,16.8l33.2-33.2c1.6-1.6,4-1.6,5.6,0 s1.6,4,0,5.6l-36,36C159,268.8,158.2,269.2,157,269.2z"></path> <path d="M157,332.8c-1.2,0-2-0.4-2.8-1.2L134.6,312c-1.6-1.6-1.6-4,0-5.6s4-1.6,5.6,0l16.8,16.8l33.2-33.2c1.6-1.6,4-1.6,5.6,0 s1.6,4,0,5.6l-36,36C159,332.4,158.2,332.8,157,332.8z"></path> <path d="M157,396.8c-1.2,0-2-0.4-2.8-1.2L134.6,376c-1.6-1.6-1.6-4,0-5.6s4-1.6,5.6,0l16.8,16.8l33.2-33.2c1.6-1.6,4-1.6,5.6,0 s1.6,4,0,5.6l-36,36C159,396.8,158.2,396.8,157,396.8z"></path> </g></svg>
-                                    <div class="mt-2 col-span-4">
+                                    <div class="mt-2 md:col-span-4">
                                         <p class="text-lg lg:text-2xl font-semibold text-purple-900">
-                                            Case Study Proofreading and Editing
+                                            Let an Expert Help in Proofreading and Editing your Work
                                         </p>
                                         <p class="py-2">
-                                            Even the most well-researched case studies can benefit from a fresh pair of eyes. Our editing and proofreading services ensure that your case studies are error-free, polished, and deliver your message with maximum impact. Our meticulous editors will carefully review your content for grammar, spelling, clarity, tone, mood, and coherence, ensuring that your case studies are of the highest quality.
+                                            Even the most well-researched papers can benefit from a fresh pair of eyes. Your own solutions are edited and proof-read to ensure they are plagiarism-free, error-free, polished, and deliver your message with maximum impact. You get to work with an expert who will carefully review your content for grammar, spelling, clarity, tone, mood, and coherence, ensuring that the final product of your work is of the highest quality.
                                         </p>
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-5 p-1 px-3 bg-gray-100">
+                                <div class="grid md:grid-cols-5 p-1 px-3 bg-gray-100">
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 504 504" xml:space="preserve"
                                          class="place-self-center"
                                          width="64px"
@@ -198,12 +200,12 @@ defineProps({
                                         <g id="SVGRepo_bgCarrier" stroke-width="0">
                                         </g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
                                         <rect x="32" y="57" style="fill:#F4EFEF;" width="440" height="324"></rect> <rect x="16" y="25" style="fill:#E36D60;" width="472" height="32"></rect> <path style="fill:#54B265;" d="M363.6,218.6c0,61.2-49.6,110.4-110.4,110.4c-61.2,0-110.4-49.6-110.4-110.4 c0-61.2,49.6-110.4,110.4-110.4C314,107.8,363.6,157.4,363.6,218.6z"></path> <path style="fill:#F4EFEF;" d="M234.8,267.8c-7.6,5.2-14.8,2-14.8-7.2v-84.4c0-8.8,7.2-12,14.8-7.2l60,40c7.6,5.2,7.6,13.2-0.4,18.4 L234.8,267.8z"></path> <path d="M470,387H30c-2.4,0-4-1.6-4-4V61c0-2.4,1.6-4,4-4s4,1.6,4,4v318h432V61c0-2.4,1.6-4,4-4s4,1.6,4,4v322 C474,385.4,472.4,387,470,387z"></path> <path d="M486,63h-34c-2.4,0-4-1.6-4-4s1.6-4,4-4h30V31H18v24h398c2.4,0,4,1.6,4,4s-1.6,4-4,4H14c-2.4,0-4-1.6-4-4V27 c0-2.4,1.6-4,4-4h472c2.4,0,4,1.6,4,4v32C490,61.4,488.4,63,486,63z"></path> <path d="M500,31H4c-2.4,0-4-1.6-4-4s1.6-4,4-4h496c2.4,0,4,1.6,4,4S502.4,31,500,31z"></path> <path d="M250,29c-2.4,0-4-1.6-4-4V5c0-2.4,1.6-4,4-4s4,1.6,4,4v20C254,27.4,252.4,29,250,29z"></path> <path d="M250,501c-2.4,0-4-1.6-4-4V385c0-2.4,1.6-4,4-4s4,1.6,4,4v112C254,499.4,252.4,501,250,501z"></path> <path d="M368,503H136c-2.4,0-4-1.6-4-4s1.6-4,4-4h232c2.4,0,4,1.6,4,4S370.4,503,368,503z"></path> <path d="M226.4,273.8c-2,0-4.4-0.4-6-1.6c-4-2.4-6.4-6.4-6.4-12v-84.4c0-5.2,2.4-9.6,6.4-12c4.4-2.4,10.4-2,15.6,1.6l60.4,40 c4.8,3.2,7.2,7.2,7.2,12s-2.8,9.6-8,12.8l-60,40l0,0C232.8,273,229.6,273.8,226.4,273.8z M226.4,171c-0.8,0-1.6,0-2.4,0.4 c-2,1.2-2.4,3.6-2.4,4.8v84.4c0,1.2,0.4,4,2.4,4.8s4.8,0.4,7.2-1.2l60-40c2.8-1.6,4.4-4,4.4-6s-1.2-4-3.6-5.6l-60.4-40 C230,171.4,228,171,226.4,171z"></path> <path d="M252.8,333c-63.2,0-114.4-51.2-114.4-114.4c0-63.2,51.2-114.4,114.4-114.4s114.4,51.2,114.4,114.4 C367.6,281.4,316,333,252.8,333z M252.8,111.8c-58.8,0-106.4,47.6-106.4,106.4S194,324.6,252.8,324.6c58.8,0,106.4-47.6,106.4-106.4 C359.6,159.8,311.6,111.8,252.8,111.8z"></path> </g></svg>
-                                    <div class="mt-2 col-span-4">
+                                    <div class="mt-2 md:col-span-4">
                                         <p class="text-lg lg:text-2xl font-semibold text-purple-900">
                                             Slides/PowerPoint Presentations
                                         </p>
                                         <p class="py-2">
-                                            Impress your audience with visually stunning and persuasive case study presentations. Our team of skilled designers and content experts will transform your case study into a captivating slide deck, complete with engaging visuals, clear messaging, and a professional layout. Whether you need to present at a conference, pitch to potential investors, or share your success stories internally, we've got you covered.
+                                            Impress your audience with visually stunning and persuasive presentations. Your presentation is transformed into into a TED-like captivating slide deck, complete with engaging visuals, clear messaging, and a professional layout. Whether you need to present in a classroom, to your professor, or at a conference, whether you hope to pitch to potential investors, or share your success stories, we've got you covered.
                                         </p>
                                     </div>
                                 </div>
@@ -222,7 +224,7 @@ defineProps({
                             How It Works: <span class="text-purple-700 italic">Simple. Secure. Confidential.</span>
                         </h3>
 
-                        <ol class="mt-6 md:pl-14 grid lg:grid-cols-2 gap-4 place-content-center">
+                        <ol class="mt-6 md:pl-14 grid lg:grid-cols-2 gap-4 place-content-center text-sm">
                             <li>
                                 <div class="mt-3 pb-3 grid grid-cols-3">
                                     <svg class="place-self-center" height="50px" width="50px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 392.566 392.566" xml:space="preserve" fill="#000000">
@@ -271,16 +273,16 @@ defineProps({
                         <h2 class="pb-10 text-slate-800 font-extrabold text-4xl text-center lg:text-[4rem] font-serif">
                             About Us
                         </h2>
-                        <img class="max-w-[16rem] md:max-w-[20rem] rounded-lg" alt="Logo" :src="`https://gatewayassignment.com/wp-content/uploads/2023/05/default.png`">
+                        <img class="max-w-[16rem] md:max-w-[20rem] rounded-lg" alt="Logo" :src="`/logo/1.png`">
                     </div>
 
                     <div class="mt-6 grid place-content-center max-w-xl">
-                        <p class="px-4 pt-6 font-bold text-2xl text-purple-700">Case Study Pro</p>
-                        <p class="py-4 pb-6 px-6 text-xl font-semibold text-slate-800 font-serif border-b border-purple-500"> Your One-Stop Solution for Professional Case Study Writing Services!</p>
-                        <p class="pt-2 text-justify text-lg lg:text-xl font-serif text-slate-700">
-                            At Case Study Pro, we are a team of professionals passionate about helping businesses succeed through the power of persuasive storytelling. With years of experience in the industry, we have collaborated with numerous clients from various sectors, producing outstanding case studies that have made a significant impact.
+                        <p class="pt-6 font-bold text-2xl text-purple-700">{{ $page.props.websiteName ?? "Case Study Pro" }}</p>
+                        <p class="py-4 pb-6 lg:px-6 text-xl font-semibold text-slate-800 border-b border-purple-500">Free More Time with Your One-Stop Solution for Professional Services!</p>
+                        <p class="pt-2 text-justify text-sm lg:text-lg text-slate-700">
+                            We are a small team of professionals passionate about helping students, individuals, and businesses succeed through the power of quality and robust professional services. With years of experience in the research and writing industry, we have collaborated with numerous students from leading education institutions in the world, producing outstanding solutions that have transformed their grades.
                             <span class="block mt-2">
-                                Our expertise, dedication to quality, and commitment to client satisfaction set us apart as the leading provider of case study writing services.
+                                Our expertise, dedication to quality, and commitment to client satisfaction set us as your most trusted and committed partner to guarantee academic excellence by taking your grades to the next-level.
                             </span>
                         </p>
                     </div>
@@ -290,7 +292,7 @@ defineProps({
                         <p class="pb-4 border-t-2 border-purple-500 uppercase text-purple-600 font-bold text-sm">mission</p>
                         <h3 class="mt-3 font-bold text-2xl text-slate-900 italic">Our Mission</h3>
                         <p class="text-slate-700 text-justify">
-                            Our mission is to empower businesses by providing them with top-notch case study writing services that drive growth, build credibility, and inspire action. We believe that every success story deserves to be told effectively, and we are here to make that happen for you.
+                            Our mission is to empower students by providing them with top-notch resources for study, research, and writing services that drive grades, build confidence, and inspire learning.
                         </p>
                     </div>
 
@@ -299,7 +301,7 @@ defineProps({
                         <p class="pb-4 border-t-2 border-amber-500 uppercase text-amber-600 font-bold text-sm">Vision</p>
                         <h3 class="mt-3 font-bold text-2xl text-slate-900 italic">Our Vision</h3>
                         <p class="text-slate-700 text-justify">
-                            We envision a world where businesses of all sizes can leverage the power of persuasive case studies to achieve their goals, make a lasting impact, and create a positive change in their industries. Through our services, we aim to be the catalyst for their success.
+                            We envision a world where your tasks do not have to stress you or take-up your valuable time which should be spent doing other important things such as being with your family, friends, or actually learning something you really love. If we can help you optimize how you spend your time and ensure every second matters, that is something we can live with.
                         </p>
                     </div>
                 </div>
@@ -314,14 +316,14 @@ defineProps({
                             Testimonials
                         </h3>
                         <p class="p-3 md:pl-8">
-                            Read what our satisfied clients have to say about their experience working with us. Our testimonials showcase the positive impact our case studies have had on our clients' businesses. We take pride in consistently delivering exceptional results and exceeding our clients' expectations.
+                            Proud customers who have enjoyed the significant benefits of working with us have left a word to let you know what to expect. Reading through their review of our services might lead to tears of joy.
                         </p>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4 md:gap-x-6 mt-4 lg:mt-9 p-6 py-8 lg:px-14 shadow-lg rounded-lg bg-white">
                         <div class="max-w-lg">
                             <p class="text-lg font-bold border-l-4 pl-3 text-slate-800">
-                                <span class="text-xl">"</span>Lorem ipsum dolor sit amet consectetur adipiscing elit hac ullamcorper aliquet vivamus nisl et aliquam vestibul.<span class="text-xl">"</span>
+                                <span class="text-xl">"</span>I loved how their services go beyond just writing papers to ensuring that all my classes were completed on time. My grades have literary transformed. I am very grategul<span class="text-xl">"</span>
                             </p>
 
                             <div class="flex gap-x-3 pl-6 mt-3">
@@ -330,14 +332,14 @@ defineProps({
 
                                 <div class="flex flex-col gap-y-1 text-sm text-slate-700 font-semibold">
                                     <p>Jake Lozyech</p>
-                                    <a class="text-slate-600">CEO, RMT Solutions</a>
+                                    <a class="text-slate-600">Student, MBA</a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="max-w-lg md:pl-3">
                             <p class="text-lg font-bold border-l-4 pl-3 text-slate-800">
-                                <span class="text-xl">"</span>Lorem ipsum dolor sit amet consectetur adipiscing elit hac ullamcorper aliquet vivamus nisl et aliquam vestibul.<span class="text-xl">"</span>
+                                <span class="text-xl">"</span>Your service saved my degree. I was struggling to balance work with coursework and multiple units. I worked with your writer and we even became very close. Thank you for everything.<span class="text-xl">"</span>
                             </p>
 
                             <div class="flex gap-x-3 pl-6 mt-3">
@@ -345,8 +347,8 @@ defineProps({
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M2,21h8a1,1,0,0,0,0-2H3.071A7.011,7.011,0,0,1,10,13a5.044,5.044,0,1,0-3.377-1.337A9.01,9.01,0,0,0,1,20,1,1,0,0,0,2,21ZM10,5A3,3,0,1,1,7,8,3,3,0,0,1,10,5Zm13,8.5v5a.5.5,0,0,1-.5.5h-1v2L19,19H14.5a.5.5,0,0,1-.5-.5v-5a.5.5,0,0,1,.5-.5h8A.5.5,0,0,1,23,13.5Z"></path></g></svg>
 
                                 <div class="flex flex-col gap-y-1 text-sm text-slate-700 font-semibold">
-                                    <p>Dr. Jim Kisinga Lozyech</p>
-                                    <a class="text-slate-600">VP Toto Ltd.</a>
+                                    <p>Ilya Kate</p>
+                                    <a class="text-slate-600">Nursing student.</a>
                                 </div>
                             </div>
                         </div>
@@ -355,9 +357,9 @@ defineProps({
                 </div>
 
                 <div class="p-6 py-8 lg:px-14 lg:py-16 bg-slate-300 text-slate-900 font-medium grid md:grid-cols-3 gap-x-6 place-content-center">
-                    <img alt="Case Study" class="rounded-lg shadow-md" :src="`https://eutraining.eu/sites/default/files/Case%20Studies%20-%20All%20the%20Details%20You%20Wanted%20to%20Know.jpg`">
-                    <div class="max-w-2xl mx-auto md:col-span-2">
-                        <p>Remember, a compelling case study can be a game-changer for your career, business, and education. Don't miss out on the opportunity to showcase your expertise and attract new clients. Start your journey with Case Study Pro today!</p>
+                    <img alt="Logo" class="rounded-lg shadow-md" :src="`/logo/2.png`">
+                    <div class="max-w-2xl grid items-center mx-auto md:col-span-2">
+                        <p>Remember, a compelling solution is a game-changer for your education and career. Don't miss out on the opportunity to showcase your expertise and attract top grades. Start your journey with our community today!</p>
                         <Link :href="`/orders/new`" class="mt-3 lg:mt-6 px-4 py-2 w-fit text-xl text-white font-bold flex gap-x-2 bg-purple-600 rounded-lg">
                             Get Started<span class="pl-3 text-sm place-self-center">></span>
                         </Link>
