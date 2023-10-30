@@ -278,7 +278,7 @@ function selectRating(value) {
                     <span class="pl-2">Order Messages</span>
                 </button>
 
-                <button v-if="order.status === `pending` ?? order.status === `complete` " @click.prevent="deleteOrder( order.id )" class="text-red-500 hover:text-red-600 underline">
+                <button v-if="order.status === `pending` || order.status === `complete` " @click.prevent="deleteOrder( order.id )" class="text-red-500 hover:text-red-600 underline">
                     Delete Order
                 </button>
 
@@ -581,39 +581,42 @@ function selectRating(value) {
 
             </Modal>
             <Modal :show="showMessage" @close="modalClose">
-                <div class="mt-4 py-4 px-5 font-serif scroll-auto max-h-screen overflow-y-auto mb-10">
+                <div class="mt-4 px-3 scroll-auto max-h-screen overflow-y-auto mb-10 text-sm">
 
-                    <div class="mx-12 my-3 bg-amber-50 px-10 py-6 rounded">
-                        <h2 class="text-lg text-center font-bold text-gray-900">
+                    <div class="m-3 lg:m-6">
+                        <h2 class="pb-4 text-lg font-bold text-gray-900">
                             Messages for Order #{{ order.id }} {{ pageUser.id }}.
                         </h2>
 
-                        <div v-for="message in messages">
-                            <div class="flex flex-col place-items-start m-2 py-2" v-if="message.user_id !== pageUser.id">
-                                <p class="bg-green-200 px-4 pb-3 rounded-xl max-w-xs">
-                                <span class="text-lime-700 font-semibold underline text-end text-sm">
-                                    {{ 'Admin' ?? 'Sender' }}  - <span class="text-xs text-gray-700">{{ getTime(message.created_at) }}</span>
-                                </span>
-                                    <br>
-                                    {{ message.message }}
-                                </p>
+                        <div class="bg-gray-100 px-2 py-1 rounded">
+                            <div v-for="message in messages">
+                                <div class="flex flex-col place-items-start m-1 py-2" v-if="message.user_id !== pageUser.id">
+                                    <p class="bg-white px-4 pb-3 rounded-xl max-w-xs">
+                                        <span class="font-semibold text-end text-xs">
+                                            {{ 'Admin' ?? 'Sender' }}  - <span class="text-gray-500">{{ getTime(message.created_at) }}</span>
+                                        </span>
+                                        <br>
+                                        {{ message.message }}
+                                    </p>
 
-                            </div>
-                            <div class="flex flex-col place-items-end m-2 py-2" v-else>
+                                </div>
+                                <div class="flex flex-col place-items-end m-1 py-2 text-sm" v-else>
 
-                                <p class="bg-indigo-200 px-2.5 pb-2 rounded-xl max-w-xs">
-                                <span class="text-lime-700 font-semibold underline -mt-2.5 text-end text-sm">
-                                    Me ~ <span class="text-xs text-gray-700">{{ getTime(message.created_at) }}</span>
-                                </span>
-                                    <br> {{ message.message }}
-                                </p>
+                                    <p class="bg-white pt-1 px-2.5 pb-2 rounded-xl max-w-xs">
+                                        <span class="font-semibold text-end text-xs">
+                                            <span class="text-gray-300">{{ getTime(message.created_at) }}</span>
+                                        </span>
+                                        <br> {{ message.message }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
+
                     </div>
 
-                    <div class="m-6 py-4 px-8 mx-12 bg-fuchsia-300 rounded-lg pb-8">
-                        <label for="instructions" class="block mb-2 text-sm font-semibold dark:text-white">
+                    <div class="m-3 lg:m-6">
+                        <label for="instructions" class="block mb-2 text-sm font-semibold">
                             New Message:
                         </label>
                         <textarea
@@ -621,7 +624,8 @@ function selectRating(value) {
                             name="message" rows="5"
                             ref="instructionsInput"
                             v-model="form.message"
-                            class="block p-2.5 w-full text-sm md:text-md shadow-sm shadow-purple-300 bg-white rounded-lg border border-gray-200 focus:ring-blue-300 focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            placeholder="Send a new message."
+                            class="block p-2.5 w-full text-sm md:text-md shadow-sm shadow-purple-300 bg-white rounded-lg border border-gray-200 focus:ring-blue-300 focus:border-blue-300">
                         </textarea>
                     </div>
 

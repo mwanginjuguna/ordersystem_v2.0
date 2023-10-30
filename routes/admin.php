@@ -12,6 +12,7 @@ use App\Http\Controllers\WriterCategoryController;
 use App\Models\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 Route::get('/admin', function () {
     $orders = \App\Models\Order::query()

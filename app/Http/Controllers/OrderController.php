@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Notify\Admin\OrderNew;
 use App\Actions\Order\Assign;
 use App\Actions\Order\Cancel;
 use App\Actions\Order\Complete;
@@ -86,50 +87,15 @@ class OrderController extends Controller
      */
     public function create()
     {
-//        $relationships = [
-//            'levels',
-//            'subjects',
-//            'services',
-//            'rates',
-//            'styles',
-//            'spacings',
-//            'writerCategories',
-//            'languages',
-//            'currencies',
-//            'discounts'
-//        ];
-//        $data = Order::with($relationships);
-        $dbQuery = DB::query()
-            ->from('academic_levels', 'levels')
-            ->from('subjects', 'subjects')
-            ->from('service_types', 'services')
-            ->from('rates', 'rates')
-            ->from('referencing_styles', 'styles')
-            ->from('spacings', 'spacings')
-            ->from('writer_categories', 'writerCategories')
-            ->from('languages', 'languages')
-            ->from('currencies', 'currencies')
-            ->from('discounts', 'discounts')
-            ->from('additional_features', 'extras')
-            ->get();
 
-        $order = new Order();
-
-        // new order form
-        return Inertia::render('Orders/OrderNew', [
-            'order' => $order,
-            'data' => $dbQuery
-        ]);
 
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         // validate and save
         $order = new Order(
@@ -157,126 +123,78 @@ class OrderController extends Controller
         $order->user_id = auth()->user()->id;
         $order->due_at = Carbon::now()->addHours($order->deadline);
         $order->save();
-        foreach ($request->files as $file) {
-            $filename = auth()->id().'_'.$file->getClientOriginalName();
-            $newFile = new File([
-                'order_id' => $order->id,
-                'name' => $filename,
-                'location' => Storage::putFileAs('orders', $file, $filename)
-            ]);
-            $newFile->save();
-        }
 
-        $notifyAdmin = [
-            'orderId' => $order->id,
-            'username' => auth()->user()->name,
-            'title' => 'New Order #'.$order->id,
-            'content' => 'New Order added. Order #'.$order->id.' by '.auth()->user()->name.'.',
-            'url' => route('orders.show', $order->id),
-            'action' => 'View Order'
-        ];
-        $admin = User::query()->where('role', '=', 'A')->first();
+        // upload files
+        UploadFile::run(order: $order, request: $request);
 
-        $admin->notify(new AdminNotification($notifyAdmin));
+        (new OrderNew(order: $order))->notify();
 
         return redirect()->route('orders.recents')->with('success', 'Order added successfully');
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
      */
-    public function show($id)
+    public function show(int $id): Response
     {
         // view an order
-        $order = Order::findOrFail($id);
-        $authUserRole = \auth()->user()->role;
+        $order = Order::where('id', $id)
+            ->with([
+                'academicLevel:id,name',
+                'subject:id,name',
+                'serviceType:id,name',
+                'spacing:id,name',
+                'referencingStyle:id,name',
+                'writerCategory:id,name',
+                'language:id,name',
+                'user:id,name',
+                'discount:id,code,rate',
+                'currency:id,symbol',
+            ])
+            ->first();
 
-        if (($order->status === 'new' || $order->status === 'pending') && $authUserRole === 'A')
+        if (($order->status === 'new' || $order->status === 'pending') && auth()->user()->role === 'A')
         {
             $writers = User::query()
                 ->where('role', '=', 'W')
                 ->get();
         }
 
-
-        $level = AcademicLevel::query()
-            ->where('id', '=', $order->academic_level_id)
-            ->pluck('name')
-            ->first();
-
-        $subject = Subject::query()
-            ->where('id', '=', $order->subject_id)
-            ->pluck('name')
-            ->first();
-        $service = ServiceType::query()
-            ->where('id', '=', $order->service_type_id)
-            ->pluck('name')
-            ->first();
-        $spacing = Spacing::query()
-            ->where('id', '=', $order->spacing_id)
-            ->pluck('name')
-            ->first();
-        $refStyle = ReferencingStyle::query()
-            ->where('id', '=', $order->referencing_style_id)
-            ->pluck('name')
-            ->first();
-        $language = Language::query()
-            ->where('id', '=', $order->language_id)
-            ->pluck('name')
-            ->first();
-        $writerCategory = WriterCategory::query()
-            ->where('id', '=', $order->writer_category_id)
-            ->pluck('name')
-            ->first();
-        $user = User::query()
-            ->where('id', '=', $order->user_id)
-            ->pluck('name')
-            ->first();
         $writer = User::query()
             ->where('id', '=', $order->assigned_to)
             ->pluck('name')
             ->first();
-        $discount = Discount::query()
-            ->where('id', '=', $order->discount_id)
-            ->pluck('code')
-            ->first();
-        $discountAmount = Discount::query()
-                    ->where('id', '=', $order->discount_id)
-                    ->pluck('rate')
-                    ->first();
-        $currencySymbol = Currency::query()
-            ->where('id', '=', $order->currency_id)
-            ->pluck('symbol')
-            ->first();
 
-        $deadline = Carbon::create($order->due_at)->diffForHumans(parts: 3);
         $files = File::query()
             ->where('order_id', '=', $order->id)
             ->latest()->get();
 
+        $deadline = Carbon::create($order->due_at)->diffForHumans(parts: 3);
+
         return Inertia::render('Admin/ViewOrder', [
-            'order' => $order, 'level' => $level,
-            'subject' => $subject, 'service' => $service,
-            'spacing' => $spacing, 'style' => $refStyle,
-            'language' => $language, 'writerCategory' => $writerCategory,
-            'user' => $user, 'discount' => $discount,
-            'writers' => $writers ?? null,
+            'order' => $order,
+            'level' => $order->academicLevel->name,
+            'subject' => $order->subject->name,
+            'service' => $order->serviceType->name,
+            'spacing' => $order->spacing->name,
+            'style' => $order->referencingStyle->name,
+            'language' => $order->language->name,
+            'writerCategory' => $order->writerCategory->name,
+            'user' => $order->user->name,
+            'discount' => $order->discount->code ?? '',
             'writer' => $writer ?? null,
+            'writers' => $writers ?? null,
             'deadline' => $deadline,
-            'discountAmount' => $discountAmount,
-            'currencySymbol' => $currencySymbol,
-            'files' => $files
+            'files' => $files ?? [],
+            'currencySymbol' => $order->currency->symbol ?? '',
+            'discountAmount' => $order->discount->rate ?? ''
         ]);
     }
 
     /**
-     * @param $id
-     * @return StreamedResponse
+     * download file
      */
-    public function downloadFile($id): StreamedResponse
+    public function downloadFile(int $id): StreamedResponse
     {
         $file = File::findOrFail($id);
         return Storage::download($file->location);
@@ -285,8 +203,6 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Order $order
-     * @return Response
      */
     public function edit(Order $order): Response
     {
@@ -299,8 +215,6 @@ class OrderController extends Controller
     /**
      * Show a file to the client.
      *
-     * @param int $fileId
-     * @return JsonResponse
      */
     public function showClient(int $fileId): JsonResponse
     {
@@ -318,9 +232,6 @@ class OrderController extends Controller
 
     /**
      * Delete a file.
-     *
-     * @param File $file
-     * @return JsonResponse
      */
     public function destroyFile(File $file): JsonResponse
     {
@@ -334,10 +245,6 @@ class OrderController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Order $order
-     * @return RedirectResponse
      */
     public function update(Request $request, Order $order): RedirectResponse
     {
@@ -363,12 +270,12 @@ class OrderController extends Controller
     }
 
     /**
-     * Order Actions - app/Actions
+     * Admin Order Actions - app/Actions
      */
     public function actions(Request $request, $id)
     {
         $action = $request->input('action');
-        $order = Order::findOrFail($id);
+        $order = Order::where('id', $id)->with('user')->first();
 
         try {
             if ($action === 'cancel') {
@@ -394,12 +301,9 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
-        //
         Order::findOrFail($id)
             ->delete();
         return redirect()->route('orders.recents')->with('success', 'Order removed successfully');

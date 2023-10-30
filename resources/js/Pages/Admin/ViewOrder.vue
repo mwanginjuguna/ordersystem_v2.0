@@ -730,37 +730,42 @@ function toggleActions() {
 
             </Modal>
             <Modal :show="showMessage" @close="modalClose">
-                <div class="mt-4 py-4 px-5 font-serif max-h-screen scroll-auto overflow-y-auto mb-12">
+                <div class="mt-4 px-3 scroll-auto max-h-screen overflow-y-auto mb-10 text-sm">
 
-                    <div class="mx-12 my-3 bg-amber-50 px-10 py-6 rounded">
-                        <h2 class="text-lg text-center font-bold text-gray-900">
+                    <div class="m-3 lg:m-6">
+                        <h2 class="pb-4 text-lg font-bold text-gray-900">
                             Messages for Order #{{ order.id }} {{ pageUser.id }}.
                         </h2>
 
-                        <div v-for="message in messages">
-                            <div class="flex flex-col place-items-start m-2 py-2" v-if="message.user_id !== pageUser.id">
-                                <div class="bg-green-200 px-4 py-2 rounded-xl max-w-xs">
-                                <p class="text-lime-700 underline text-end text-sm">
-                                    {{ props.user ?? 'Sender' }} - <span class="text-xs text-gray-700">{{ getTime(message.created_at) }}</span>
-                                </p>
-                                    {{ message.message }}
-                                </div>
+                        <div class="bg-gray-100 px-2 py-1 rounded">
+                            <div v-for="message in messages">
+                                <div class="flex flex-col place-items-start m-1 py-2" v-if="message.user_id !== pageUser.id">
+                                    <p class="bg-white px-4 pb-3 rounded-xl max-w-xs">
+                                        <span class="font-semibold text-end text-xs">
+                                            {{ props.user ?? 'Sender' }}  - <span class="text-gray-500">{{ getTime(message.created_at) }}</span>
+                                        </span>
+                                        <br>
+                                        {{ message.message }}
+                                    </p>
 
-                            </div>
-                            <div class="flex flex-col place-items-end m-2 py-2" v-else>
-                                <div class="bg-indigo-200 px-2.5 py-3 rounded-xl max-w-xs">
-                                <p class="text-lime-700 font-semibold underline -mt-2.5 text-end text-sm">
-                                    Me ~ <span class="text-xs text-gray-700">{{ getTime(message.created_at) }}</span>
-                                </p>
-                                    {{ message.message }}
+                                </div>
+                                <div class="flex flex-col place-items-end m-1 py-2 text-sm" v-else>
+
+                                    <p class="bg-white pt-1 px-2.5 pb-2 rounded-xl max-w-xs">
+                                        <span class="font-semibold text-end text-xs">
+                                            <span class="text-gray-300">{{ getTime(message.created_at) }}</span>
+                                        </span>
+                                        <br> {{ message.message }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
+
                     </div>
 
-                    <div class="m-6 py-4 px-8 mx-12 bg-amber-200 rounded-xl">
-                        <label for="instructions" class="block mb-2 text-sm font-semibold dark:text-white">
+                    <div class="m-3 lg:m-6">
+                        <label for="instructions" class="block mb-2 text-sm font-semibold">
                             New Message:
                         </label>
                         <textarea
@@ -768,8 +773,10 @@ function toggleActions() {
                             name="message" rows="5"
                             ref="instructionsInput"
                             v-model="form.message"
+                            placeholder="Send a new message."
                             class="block p-2.5 w-full text-sm md:text-md shadow-sm shadow-purple-300 bg-white rounded-lg border border-gray-200 focus:ring-blue-300 focus:border-blue-300">
                         </textarea>
+
                         <div class="flex flex-wrap space-x-8 m-3 text-sm">
                             <p>Send To: {{ receiver }} </p>
                             <select class="rounded" name="receiver" v-model="receiver">

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
@@ -39,7 +40,7 @@ class Order extends Model
         return $this->belongsTo(Rate::class);
     }
 
-    public function level(): BelongsTo
+    public function academicLevel(): BelongsTo
     {
         return $this->belongsTo(AcademicLevel::class);
     }
@@ -49,7 +50,7 @@ class Order extends Model
         return $this->belongsTo(Subject::class);
     }
 
-    public function service(): BelongsTo
+    public function serviceType(): BelongsTo
     {
         return $this->belongsTo(ServiceType::class);
     }
@@ -59,7 +60,7 @@ class Order extends Model
         return $this->belongsTo(WriterCategory::class);
     }
 
-    public function style(): BelongsTo
+    public function referencingStyle(): BelongsTo
     {
         return $this->belongsTo(ReferencingStyle::class);
     }
@@ -82,5 +83,10 @@ class Order extends Model
     public function discount(): BelongsTo
     {
         return $this->belongsTo(Discount::class);
+    }
+
+    public function files(): HasMany
+    {
+        return $this->hasMany(File::class);
     }
 }

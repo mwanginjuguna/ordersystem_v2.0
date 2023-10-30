@@ -2,6 +2,9 @@
 
 namespace App\Actions\Order;
 
+use App\Actions\Notify\Admin\OrderRevisionRequest;
+use App\Actions\Notify\Writer\OrderRevision;
+use App\Mail\OrderAction;
 use App\Mail\WriterAction;
 use App\Models\Order;
 use App\Models\User;
@@ -12,25 +15,28 @@ use Illuminate\Support\Facades\Mail;
 class Revision
 {
 
-    public static function run(Order $order, Request $request): RedirectResponse
+    public static function run(Order $order, Request $request): bool
     {
-        //
+        // update order
         $order->status = "revision";
         $order->revision_instructions = $request->revision_instructions;
         $order->save();
 
+        // notify writer
         if ($order->assigned_to) {
-            $writer = User::where('id', $order->assigned_to)->first();
-            $data = [
-                'orderId' => $order->id,
-                'actionTitle' => 'Revision Request on your active order: Order #'.$order->id,
-                'actionName' => "Revision Request"
-            ];
-            Mail::to($writer)->queue(new WriterAction($data));
+            (new OrderRevision(order: $order))->notify();
         }
 
-        return redirect()->route('orders.show', [
-            'id' => $order->id
-        ])->with('success', 'Revision request received.');
+        // notify user
+        Mail::to($order->user)->queue(new OrderAction([
+            'orderId' => $order->id,
+            'orderAction' => 'Order Revision.',
+            'actionTitle' => 'Order Revision Request for Order Number #'.$order->id
+        ]));
+
+        // notify admin
+        (new OrderRevisionRequest(order: $order))->notify();
+
+        return true;
     }
 }

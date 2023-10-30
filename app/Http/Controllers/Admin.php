@@ -10,7 +10,7 @@ class Admin extends Controller
     public $adminUser;
 
     public function __construct() {
-        $this->adminUser = User::query()->where('role', '=', 'A');
+        $this->adminUser = view()->shared('admin');
     }
 
     public function notify($data) {

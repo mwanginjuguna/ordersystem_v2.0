@@ -11,7 +11,7 @@
                     <p>
                         <span class="font-bold text-xs">Title: </span>
 
-                        <Link :href="route('orders.show', order.id)"
+                        <Link :href="route(isAdmin ? 'admin.orders.show' : 'orders.show', order.id)"
                               class="text-sky-500 hover:text-sky-600 hover:underline underline-offset-2"
                         >
                             {{ order.title }}
@@ -30,10 +30,10 @@
                 </div>
 
                 <div class="grid place-content-end hidden sm:block">
-                    <Link :href="route('orders.show', order.id)" class="text-sky-400 hover:text-sky-500 underline mx-2">
+                    <Link :href="route(isAdmin ? 'admin.orders.show' : 'orders.show', order.id)" class="text-sky-400 hover:text-sky-500 underline mx-2">
                         View
                     </Link>
-                    <Link :href="route('orders.delete', order.id)" class="text-red-400 hover:text-red-500 underline mx-2">
+                    <Link :href="route(isAdmin ? 'admin.orders.delete' : 'orders.delete', order.id)" class="text-red-400 hover:text-red-500 underline mx-2">
                         Delete
                     </Link>
                 </div>
@@ -51,7 +51,8 @@ let { formatTime } = useFormatTime();
 
 defineProps({
     orders: Object,
-    title: String
+    title: String,
+    isAdmin: false
 })
 
 </script>

@@ -105,7 +105,7 @@ for (let order of Object.values(props.orders)) {
                         <!--stats-->
                         <div class="flex flex-col sm:flex-row sm:justify-between sm:w-[92%] px-4 sm:px-8 md:pt-4 pb-3 md:pb-6 place-content-center text-slate-900 md border-t">
                             <div class="grid gap-y-2">
-                                <Link :href="route('orders.submitted')"
+                                <Link :href="route('admin.orders.submitted')"
                                       class="mt-3 p-1 px-2 w-44 lg:w-60 flex justify-between items-center rounded bg-purple-200 hover:underline"
                                 >
                                     <div class="">
@@ -120,7 +120,7 @@ for (let order of Object.values(props.orders)) {
 
                                 </Link>
 
-                                <Link :href="route('orders.revision')"
+                                <Link :href="route('admin.orders.revision')"
                                       class="p-1 px-2 w-44 lg:w-60 flex justify-between align-middle rounded bg-amber-200 hover:underline"
                                 >
                                     <div class="">
@@ -137,7 +137,7 @@ for (let order of Object.values(props.orders)) {
                             </div>
 
                             <div class="grid gap-y-2">
-                                <Link :href="route('orders.recents')"
+                                <Link :href="route('admin.orders.recents')"
                                       class="mt-3 p-1 px-2 w-44 lg:w-60 flex justify-between items-center rounded bg-amber-200 hover:underline"
                                 >
                                     <div class="">
@@ -150,7 +150,7 @@ for (let order of Object.values(props.orders)) {
                                     </div>
                                 </Link>
 
-                                <Link :href="route('orders.pending')"
+                                <Link :href="route('admin.orders.pending')"
                                       class="p-1 px-2 w-44 lg:w-60 flex justify-between align-middle rounded bg-purple-200 hover:underline"
                                 >
                                     <div class="">
@@ -166,7 +166,7 @@ for (let order of Object.values(props.orders)) {
 
                             <div class="grid gap-y-2">
 
-                                <Link :href="route('orders.disputed')"
+                                <Link :href="route('admin.orders.disputed')"
                                       class="mt-3 p-1 px-2 w-44 lg:w-60 flex justify-between align-middle rounded bg-purple-200 hover:underline"
                                 >
                                     <div class="">
@@ -181,7 +181,7 @@ for (let order of Object.values(props.orders)) {
 
                                 </Link>
 
-                                <Link :href="route('orders.cancelled')"
+                                <Link :href="route('admin.orders.cancelled')"
                                       class="mt-3 p-1 px-2 w-44 lg:w-60 flex justify-between align-middle rounded bg-amber-200 hover:underline"
                                 >
                                     <div class="">

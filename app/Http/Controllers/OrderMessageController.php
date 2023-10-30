@@ -16,15 +16,16 @@ class OrderMessageController extends Controller
 {
     public $admin;
 
+    public function __construct()
+    {
+        $this->admin = view()->shared('admin');
+    }
+
     // fetch all messages from db
     public function messagesIndex(Request $request, $id): JsonResponse
     {
-        // initialize admin
-        $this->admin = User::query()->where('role', '=', 'A')->first();
-
+        // retrieve data from request
         $data = json_decode($request->getContent(), true);
-
-        $order = Order::findOrFail($id);
 
         // all messages for $this order
         $messages = OrderMessage::query()
@@ -33,8 +34,6 @@ class OrderMessageController extends Controller
             ->get();
 
         return response()->json([
-            //'client' => $order->user_id,
-            //'writer' => $order->assigned_to,
             'messages' => $messages
         ]);
     }
@@ -43,13 +42,10 @@ class OrderMessageController extends Controller
     // save messages to db - admin only
     public function messagesCreate( Request $request, $id): JsonResponse
     {
-        // initialize admin
-        $this->admin = User::query()->where('role', '=', 'A')->first();
-
         $data = json_decode($request->getContent(), true);
 
         // init order
-        $order = Order::findOrFail($id);
+        $order = Order::where('id',$id)->with('user')->first();
 
         // create new message
         // if message sent by admin, is it meant for Client or Writer?
@@ -61,10 +57,8 @@ class OrderMessageController extends Controller
             'send_to_client' => $data['receiver'] === 'client' ?? false,
             'send_to_writer' => $data['receiver'] === 'writer' ?? false,
         ]);
-        $admin = User::query()->where('role', '=', 'A')->first();
-        $user = User::query()
-            ->where('id', '=', $order->user_id)
-            ->first();
+
+        $user = $order->user;
         $notifyAdmin = [
             'orderId' => $order->id,
             'username' => $user->name,
@@ -75,9 +69,9 @@ class OrderMessageController extends Controller
             'action' => 'View Order'
         ];
 
-        if ($admin->id !== $orderMessage->user_id)
+        if ($this->admin->id !== $orderMessage->user_id)
         {
-            $admin->notify(new AdminNotification($notifyAdmin));
+            $this->admin->notify(new AdminNotification($notifyAdmin));
         } else {
             $mailData = [
                 'title'=> 'Order #'.$order->id.' Message.',

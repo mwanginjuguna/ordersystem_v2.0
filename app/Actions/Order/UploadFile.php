@@ -16,7 +16,7 @@ class UploadFile
      */
     public static function run(Order $order, Request $request): bool
     {
-        foreach ($request->files as $filer) {
+        foreach ($request->file() as $filer) {
             foreach ($filer as $file) {
                 $filename = $order->id.'_'.$file->getClientOriginalName();
                 $newFile = new File([
@@ -31,6 +31,7 @@ class UploadFile
         }
 
         (new FileUploaded($order))->notify();
+
         return true;
     }
 }

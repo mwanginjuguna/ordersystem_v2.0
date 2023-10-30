@@ -2,36 +2,33 @@
 
 namespace App\Actions\Order;
 
-use App\Actions\Notify\Admin\FileUploaded;
-use App\Mail\OrderSubmitted;
-use App\Models\File;
+use App\Actions\Notify\Admin\OrderCompleted;
+use App\Mail\OrderAction;
 use App\Models\Order;
-use App\Models\User;
-use App\Notifications\AdminNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 
 class Complete
 {
-    public static function run(Order $order, Request $request): RedirectResponse
+    public static function run(Order $order, Request $request): bool
     {
         // upload files, change order status to submitted, notify admin and client
-        $order->status = auth()->user()->id === $order->user_id ? "complete" : "submitted";
-
-        (new UploadFile())->run(order: $order, request: $request);
-
-        (new \App\Actions\Notify\Admin\OrderSubmitted(order: $order))->notify();
-
-        $client = $order->user()->get(); // User::query()->where('id', '=', $order->user_id)->first();
-
-        Mail::to($client)->queue(new OrderSubmitted($order));
-
+        $order->status = "complete";
+        $order->review = $request->get('review');
+        $order->rating = $request->get('stars');
+        $order->completed_at = now();
         $order->save();
 
-        return redirect()->route('orders.show', [
-            'id' => $order->id
-        ])->with('success', 'Order Submitted');
+        (new OrderCompleted(order: $order))->notify();
+
+        $user = $order->user;
+        Mail::to($user)->queue(new OrderAction(data: [
+            'actionTitle' => 'Order marked as complete (#'.$order->id.')',
+            'orderAction' => 'Order Completed',
+            'orderId' => $order->id
+        ]));
+
+        return true;
     }
 }

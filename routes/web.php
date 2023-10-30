@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ClientActionsController;
 use App\Http\Controllers\ClientOrdersController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PayPalPaymentsController;
 use App\Http\Controllers\ProfileController;
 use App\Models\AcademicLevel;
 use App\Models\Currency;
@@ -71,45 +73,49 @@ Route::middleware('auth')->group(function () {
     Route::post('/messages/{chat}', [MessageController::class, 'showMessages'])->name('messages.show');
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::post('/messages/new', [MessageController::class, 'store'])->name('messages.create');
-
-    Route::post(
-        'orders/order/{id}/upload-file',
-        [OrderController::class, 'uploadFiles'])
-        ->name('order.submit-files');
+    // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // upload file
+    Route::post('orders/order/{id}/upload-file', [OrderController::class, 'uploadFiles'])
+        ->name('order.submit-files');
+    // download file
+    Route::get('admin/orders/file/{id}', function ($id) {
+        $file = File::findOrFail($id);
+        $path2 = Storage::disk('local')->path('orders\\'.$file->name);
+        return response()->download($path2);
+    })->name('files.download');
 
     Route::controller(ClientOrdersController::class)->group(function () {
         // Route::get('/orders/new', 'create')->name('orders.new');
         Route::get('orders', 'index')->name('client.orders');
         Route::get('orders/order/{id}', 'show')->name('orders.show');
         Route::get('orders/preview/{id}', 'preview')->name('orders.preview');
-        Route::post('orders/order/{id}/upload-file', 'uploadFiles')->name('orders.upload-file');
-        Route::get('admin/orders/file/{id}', function ($id) {
-            $file = File::findOrFail($id);
-            $path2 = Storage::disk('local')->path('orders\\'.$file->name);
-            return response()->download($path2);
-        })->name('files.download');
-
-        Route::patch('/orders/order/complete/{id}', 'markCompleted')->name('orders.complete');
-        Route::post('/orders/order/revision/{id}', 'requestRevision')->name('orders.revisionRequest');
-        Route::patch('/orders/order/extend/{id}', 'extendDeadline')->name('orders.extend');
-        Route::patch('/orders/order/dispute/{id}', 'disputeOrder')->name('orders.dispute');
-        Route::get('/orders/recents', 'recents')->name('orders.recents');
+        // show orders list based on status
+        Route::get('/orders/recents', 'index')->name('orders.recents');
+        Route::get('/orders/cancelled', 'index')->name('orders.cancelled');
+        Route::get('/orders/submitted', 'index')->name('orders.submitted');
+        Route::get('/orders/running', 'index')->name('orders.running');
+        Route::get('/orders/completed', 'index')->name('orders.completed');
+        Route::get('/orders/revision', 'index')->name('orders.revision');
+        Route::get('/orders/disputed', 'index')->name('orders.disputed');
+        Route::get('/orders/pending', 'index')->name('orders.pending');
+        // delete
         Route::delete('/orders/order/{id}', 'destroy')->name('orders.delete');
-        Route::get('/orders/cancelled', 'cancelled')->name('orders.cancelled');
-        Route::get('/orders/submitted', 'submitted')->name('orders.submitted');
-        Route::get('/orders/running', 'running')->name('orders.running');
-        Route::get('/orders/completed', 'completed')->name('orders.completed');
-        Route::get('/orders/revision', 'revision')->name('orders.revision');
-        Route::get('/orders/disputed', 'disputed')->name('orders.disputed');
-        Route::get('/orders/pending', 'pending')->name('orders.pending');
     });
 
+    Route::controller(ClientActionsController::class)->group(function () {
+        Route::patch('/orders/order/complete/{id}', 'actions')->name('orders.complete');
+        Route::post('/orders/order/revision/{id}', 'actions')->name('orders.revisionRequest');
+        Route::patch('/orders/order/extend/{id}', 'actions')->name('orders.extend');
+        Route::patch('/orders/order/dispute/{id}', 'actions')->name('orders.dispute');
+        Route::post('orders/order/{id}/upload-file', 'uploadFiles')->name('orders.upload-file');
+    });
 });
 
-Route::controller(\App\Http\Controllers\PayPalPaymentsController::class)->group(function () {
+Route::controller(PayPalPaymentsController::class)->group(function () {
     Route::get('/orders/order/make-payment/{id}', 'pay')->name('make-payment');
     Route::get('/orders/order/cancel-payment/{id}', 'cancel')->name('cancel-payment');
     Route::get('/orders/order/payment-success/{id}', 'success')->name('payment-success');
