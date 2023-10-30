@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Notify\Admin\MessageNew;
 use App\Mail\NewMessageReceived;
 use App\Mail\OrderReceived;
 use App\Models\Order;
@@ -59,19 +60,15 @@ class OrderMessageController extends Controller
         ]);
 
         $user = $order->user;
-        $notifyAdmin = [
-            'orderId' => $order->id,
-            'username' => $user->name,
-            'title' => 'Order #'.$order->id.' Message.',
-            'content' => 'A new message has been sent on Order #'.$order->id.' by '.$user->name.
-                '. "'.$orderMessage->message.'".',
-            'url' => route('orders.show', $order->id),
-            'action' => 'View Order'
-        ];
+
 
         if ($this->admin->id !== $orderMessage->user_id)
         {
-            $this->admin->notify(new AdminNotification($notifyAdmin));
+
+            (new MessageNew($order, [
+                'orderMessage' => $orderMessage
+            ]))->notify();
+
         } else {
             $mailData = [
                 'title'=> 'Order #'.$order->id.' Message.',

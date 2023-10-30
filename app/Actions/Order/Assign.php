@@ -21,8 +21,6 @@ class Assign
 
         $order->save();
 
-        return redirect()->route('orders.show', [
-            'id' => $order->id
-        ])->with('success', 'Assigned to the Writer');
+        return true;
     }
 }

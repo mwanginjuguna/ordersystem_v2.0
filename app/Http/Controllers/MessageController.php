@@ -39,7 +39,7 @@ class MessageController extends Controller
 
         // get the recipients of all the messages
         foreach ($messages as $message) {
-            $recipient = User::where('id', $message->to)->first();
+            $recipient = $message->recipient;
             $recipients[] = $recipient;
         }
 
