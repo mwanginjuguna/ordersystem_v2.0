@@ -132,18 +132,18 @@ async function sendEmails() {
     <Head :title="`Order #${order.id} Preview - ${$page.props.websiteName}`" />
     <ClientLayout>
         <OrdersCard>
-            <h1 class="text-center mt-6 text-xl font-extrabold font-serif text-purple-900 uppercase underline">
-                Order Preview
+            <h1 class="text-xl font-bold text-purple-900 uppercase underline">
+                Order #{{order.id}} Preview
             </h1>
-            <section class="mt-5 grid md:grid-cols-3 rounded font-serif py-2 px-3">
-                <div class="md:col-span-2 text-base">
+            <section class="grid md:grid-cols-3 rounded py-2 px-3">
+                <div class="md:col-span-3 pb-6 text-base">
                     <div class="p-1.5 grid gap-2">
-                        <h3 class="text-md md:text-lg font-semibold lg:font-bold mb-3">
-                            Order Details
+                        <h3 class="md:text-lg font-semibold lg:font-bold mb-3">
+                            Order Summary
                         </h3>
-                        <div class="flex flex-col space-y-2.5">
-                            <p>A <span class="underline text-gray-700 font-sans">{{order.pages}} </span> Page(s)
-                                <span class="underline text-gray-700 font-sans">{{ level }}</span> level <span class="underline text-gray-700 font-sans">{{ service }}</span> task/assignment in
+                        <div class="flex flex-col space-y-2.5 text-sm">
+                            <p>A <span class="underline text-gray-700">{{order.pages}} </span> Page(s)
+                                <span class="underline text-gray-700">{{ level }}</span> level <span class="underline text-gray-700">{{ service }}</span> task/assignment in
                                 <span class="underline text-gray-700">{{ subject }}</span> Subject/Discipline.
                             </p>
                             <p>
@@ -165,14 +165,13 @@ async function sendEmails() {
                     </div>
                 </div>
 
-
                 <!--administrative details-->
-                <div class="col-span-1 lg:col-span-1 ml-4 border-l">
+                <div class="md:col-span-1">
                     <div class="p-3 grid gap-3">
                         <h3 class="text-md md:text-lg font-semibold lg:font-bold mb-3">
                             Administrative Details
                         </h3>
-                        <div class="flex flex-col space-y-2.5 text-sm text-gray-800 lg:px-5">
+                        <div class="flex flex-col space-y-2.5 text-sm text-gray-800">
                             <p class="border-b">Assigned to:
                                 <span class="ml-4 md:text-sm text-gray-600" v-if="writer">{{ writer }}</span>
                                 <span class="ml-4 md:text-sm text-gray-600" v-else>Expert Writer</span>
@@ -193,33 +192,26 @@ async function sendEmails() {
                                 </span>
                             </p>
                             <p class="border-b">Amount:
-                                <span class="ml-4 md:text-sm text-gray-600">{{ currencySymbol }} {{ order.amount }}</span>
+                                <span class="ml-4 md:text-sm" :class="order.paid === 1 ? `text-gray-600` : `text-red-500`">
+                                    {{ currencySymbol }} {{ order.amount }}
+                                </span>
                             </p>
                             <p class="border-b">Status:
                                 <span class="ml-4 md:text-sm text-gray-600">{{ order.status }}</span>
                             </p>
-                            <p class="border-b" v-if="discount">Discount/Coupon:
-                                <span class="md:text-sm text-gray-600">"{{ discount }}" </span> =
-                                <span class="underline text-green-600"> {{ discountAmount }}% OFF</span>
+                            <p class="border-b" v-if="discount">Coupon:
+                                <span class="text-gray-600 text-xs">"{{ discount }}" </span> =
+                                <span class="underline text-green-600 text-xs"> {{ discountAmount }}% OFF</span>
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-span-1 lg:mt-3" v-if="files.length > 0">
-                    <span class="font-semibold lg:text-center">Files:</span>
-                    <div class="flex flex-col" v-for="file in files">
-                        <Link class="ml-2 underline text-blue-900 p-2 border-b border-gray-200"
-                              @click="alert('You cannot download at preview!!')"
-                        >{{ file.name }}</Link>
-                    </div>
-                </div>
 
-                <div class="col-span-2 mt-3 lg: mt-7" v-if="order.paid == 0" >
-                    <p class="text-red-300 text-xs">* Complete payment for the expert to start working on your order.</p>
-                    <div class="p-6 lg:mx-12 text-white rounded-lg flex flex-col space-x-3">
-                        <p class="text-slate-900 mg:text-lg bg-blue-400 px-6 mb-4 py-2 uppercase font-bold mx-auto rounded-md">
-                            Continue to Checkout <br>
-                            Total Due: <span class="font-serif text-green-900 underline ml-4">{{ currencySymbol }} {{ order.amount }}</span>
+                <div class="md:col-span-2 mt-3 lg:pt-7" v-if="order.paid == 0" >
+                    <p class="text-red-500 text-xs lg:text-sm">* Complete payment for the expert to start working on your order.</p>
+                    <div class="py-6 text-white rounded-lg flex flex-col space-x-3">
+                        <p class="text-sky-500 mg:text-lg border-2 border-green-400 px-6 mb-4 m-2 py-2 font-bold rounded-md">
+                            Total Due: <span class="underline ml-4">{{ currencySymbol }} {{ order.amount }}</span>
                         </p>
                         <!--
                         <Link :class="'mg:text-lg uppercase font-bold mx-auto'">Continue to Checkout: <span class="text-slate-900 font-serif">{{ currencySymbol }} {{ order.amount }}</span></Link> -->
@@ -234,13 +226,11 @@ async function sendEmails() {
                 </div>
 
                 <!--Instructions-->
-                <div class="mt-6 col-span-2">
-                    <div class="rounded bg-white text-black min-w-2/3 m-2 md:mx-5 p-3 px-6">
-                        <div class=" flex justify-between">
-                            <h3 class="text-lg font-bold">
-                                Order Instructions
-                            </h3>
-                        </div>
+                <div class="mt-6 md:col-span-3">
+                    <div class="min-w-2/3 m-2 p-3 px-6">
+                        <h3 class="text-lg font-bold">
+                            Order Instructions
+                        </h3>
 
                         <hr class="border-1 w-full mx-auto border-blue-900 mb-4">
                         <h3 class="text-md text-gray-700 font-semibold mr-4 border-b border-gray-200">Order title:

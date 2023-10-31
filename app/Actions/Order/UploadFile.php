@@ -21,7 +21,7 @@ class UploadFile
                 $filename = $order->id.'_'.$file->getClientOriginalName();
                 $newFile = new File([
                     'order_id' => $order->id,
-                    'type' => $request->fileType,
+                    'type' => $request->fileType ?? 'Order File',
                     'name' => $filename,
                     'location' => Storage::putFileAs('orders', $file, $filename ),
                     'uploaded_by' => \auth()->user()->role

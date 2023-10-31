@@ -69,7 +69,7 @@ defineProps({
                                     <p class="pb-1 border-b border-purple-200 w-full text-base font-semibold text-slate-700">
                                         1200+ Returning Customers
                                     </p>
-                                    <p><strong>Tested and Trusted</strong> by over 200 individuals and businesses.</p>
+                                    <p><strong>Tested and Trusted</strong> by over 1200 individuals and businesses.</p>
                                 </div>
                             </div>
 

@@ -71,7 +71,7 @@
             </div>
 
             <button type="submit" class="mt-4 mx-auto mb-4 p-2 w-full bg-purple-600 hover:bg-purple-700 text-slate-50 rounded-md text-base place-content-center font-bold font-serif flex flex-row">
-                Write My Case Study
+                Order Now >
                 <span id="blinking-cursor" class="text-sm pl-1">|</span>
             </button>
 

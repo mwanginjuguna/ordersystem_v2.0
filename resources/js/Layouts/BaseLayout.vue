@@ -66,16 +66,13 @@ const currentYear = ref(new Date().getFullYear());
 
                                     <!-- Navigation Links -->
                                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                        <NavLink :href="$page.props.homeUrl" :active="$page.props.homeUrl">
+                                        <NavLink :href="$page.props.homeUrl">
                                             Home
                                         </NavLink>
-                                        <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                            Dashboard
-                                        </NavLink>
-                                        <NavLink v-if="$page.props.auth.user.role === 'A'" :href="route('admin')" :active="route().current('admin')">
+                                        <NavLink :href="route('admin')" :active="route().current('admin')">
                                             Admin
                                         </NavLink>
-                                        <NavLink :href="$page.props.homeUrl+`services`" :active="$page.props.homeUrl+`services`">
+                                        <NavLink :href="$page.props.homeUrl+`services`">
                                             Services
                                         </NavLink>
                                     </div>
