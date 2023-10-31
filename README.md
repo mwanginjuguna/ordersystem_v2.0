@@ -2,7 +2,14 @@
 The Order Management System is a professional web application designed for freelance writers and agencies to manage orders, customers, and experts for various projects.
 
 The application features a professional dashboard environment, to help all users monitor and access the various features of the application.
-![Client Dashboard](https://github.com/mwanginjuguna/public-image-assets/blob/main/order-management-system/client-dashboard_v2.png)
+
+### Sample Landing Page
+![Sample Landing Page](https://github.com/mwanginjuguna/public-image-assets/blob/main/order%20management%20system/landing-page.png)
+
+### Client Dashboard
+![Client Dashboard](https://github.com/mwanginjuguna/public-image-assets/blob/main/order%20management%20system/client-dashboard_v2.png)
+
+### Admin Dashboard
 ![Admin Dashboard](https://github.com/mwanginjuguna/public-image-assets/blob/main/order%20management%20system/admin-dashboard.png)
 
 The application offers fast and secure payments through PayPal API integration, automatic price calculations based on writing task features, and live deadline countdowns for order tracking.
