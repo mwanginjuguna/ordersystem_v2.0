@@ -1,1 +1,0 @@
-#blinking-cursor{font-weight:100;font-size:20px;color:#fff;animation:1s blink step-end infinite}@keyframes blink{0%,to{color:transparent}50%{color:#fff}}

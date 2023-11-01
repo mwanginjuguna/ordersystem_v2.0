@@ -1,1 +1,0 @@
-function i(){function s(a){const t=new Date(a).getTime()-Date.now(),o=Math.floor(t/(1e3*60*60*24)),n=Math.floor(t%(1e3*60*60*24)/(1e3*60*60)),e=Math.floor(t%(1e3*60*60)/(1e3*60)),r=t<0;return`${o?o+" days ":""}${n?n+" hrs ":""}${e} min ${r?"ago":"from now"}`}return{formatTime:s}}export{i as u};
