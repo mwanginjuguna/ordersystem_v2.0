@@ -25,4 +25,28 @@ The project showcases proficiency in Laravel, Vue.js, and TailwindCSS, and their
 - Live Messaging - Admin can send/receive instant messages from customers and writers.
 ![](https://github.com/mwanginjuguna/public-image-assets/blob/main/order%20management%20system/messaging_v2.png)
 
+## HOW to use
+Start by cloning the current repository.
+1. Install PHP and Laravel dependencies via composer.
+```
+composer install
+```
+2. Install Javascript and Vue3 dependencies via npm
+```
+npm install
+```
+
+```
+npm run dev
+```
+
+3. Serve the application from local webserver.
+```
+php artisan serve
+```
+4. Customize as needed.
+
+## License
+[Apache License, Version 2.0](https://opensource.org/license/apache-2-0/)
+
 # [View Live Demo](https://ordersystem.mwangikanothe.com/)
