@@ -28,12 +28,12 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-     return redirect()->route('app-home');
-     // return redirect(env('HOME_URL'));
-})->name('home');
+//Route::get('/', function () {
+//     return redirect()->route('app-home');
+//     // return redirect(env('HOME_URL'));
+//})->name('home');
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return Inertia::render('Welcome', [
         'levels' => AcademicLevel::all(),
         'currencies' => Currency::all(),
@@ -44,13 +44,15 @@ Route::get('/home', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-})->name('app-home');
+})->name('home');
 
 Route::get('/dashboard', function () {
+    // redirect admin
     if (auth()->user()->role === 'A')
     {
         return redirect()->route('admin');
     }
+
     $orders = \App\Models\Order::query()
         ->where('user_id', '=', auth()->user()->id)
         ->latest()

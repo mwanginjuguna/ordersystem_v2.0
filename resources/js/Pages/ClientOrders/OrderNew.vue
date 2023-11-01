@@ -82,8 +82,8 @@ let form = useForm(
         'files': [],
         'amount': '',
         'name': '',
-        'email': '',
-        'password': '',
+        'email': 'johndoe@ordersystem.com',
+        'password': 'johndoe1',
         'password_confirmation': '',
     }
 );
@@ -656,6 +656,67 @@ function toggleCalculator() {
                                 Register
                             </button>
                         </div>
+                        <div v-if="loginUser === true" class="max-w-md my-12 mx-auto shadow-md p-8 rounded-lg">
+                            <form>
+                                <div>
+                                    <div class="flex">
+                                        <InputLabel for="email" value="Email" />
+                                        <span class="text-red-500 text-xs">* required</span>
+                                    </div>
+
+
+                                    <TextInput
+                                        id="email"
+                                        type="email"
+                                        class="mt-1 block w-full"
+                                        v-model="form.email"
+                                        required
+                                        autofocus
+                                        autocomplete="username"
+                                    />
+                                    <p class="text-xs lg:text-sm text-orange-500">Demo email: johndoe@ordersystem.com</p>
+                                    <InputError class="mt-2" :message="form.errors.email" />
+                                </div>
+
+                                <div class="mt-4">
+                                    <div class="flex">
+                                        <InputLabel for="password" value="Password" />
+                                        <span class="text-red-500 text-xs">* required</span>
+                                    </div>
+
+
+                                    <TextInput
+                                        id="password"
+                                        type="password"
+                                        class="mt-1 block w-full"
+                                        v-model="form.password"
+                                        required
+                                        autocomplete="current-password"
+                                    />
+                                    <p class="text-xs lg:text-sm text-orange-500">Demo password: johndoe1</p>
+                                    <InputError class="mt-2" :message="form.errors.password" />
+                                </div>
+
+                                <div class="block mt-4">
+                                    <label class="flex items-center">
+                                        <Checkbox name="remember" v-model:checked="form.remember" />
+                                        <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                                    </label>
+                                </div>
+
+                                <div class="flex items-center justify-end mt-4">
+                                    <Link
+                                        :href="route('password.request')"
+                                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Forgot your password?
+                                    </Link>
+
+                                    <PrimaryButton class="ml-4" @click.prevent="addOrder" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                                        Log in
+                                    </PrimaryButton>
+                                </div>
+                            </form>
+                        </div>
                         <div v-show="registerUser === true" class="max-w-md my-12 mx-auto shadow-md p-8 rounded-lg">
                             <div>
                                 <div>
@@ -738,67 +799,6 @@ function toggleCalculator() {
                                     </PrimaryButton>
                                 </div>
                             </div>
-                        </div>
-                        <div v-if="loginUser === true" class="max-w-md my-12 mx-auto shadow-md p-8 rounded-lg">
-                            <form>
-                                <div>
-                                    <div class="flex">
-                                        <InputLabel for="email" value="Email" />
-                                        <span class="text-red-500 text-xs">* required</span>
-                                    </div>
-
-
-                                    <TextInput
-                                        id="email"
-                                        type="email"
-                                        class="mt-1 block w-full"
-                                        v-model="form.email"
-                                        required
-                                        autofocus
-                                        autocomplete="username"
-                                    />
-
-                                    <InputError class="mt-2" :message="form.errors.email" />
-                                </div>
-
-                                <div class="mt-4">
-                                    <div class="flex">
-                                        <InputLabel for="password" value="Password" />
-                                        <span class="text-red-500 text-xs">* required</span>
-                                    </div>
-
-
-                                    <TextInput
-                                        id="password"
-                                        type="password"
-                                        class="mt-1 block w-full"
-                                        v-model="form.password"
-                                        required
-                                        autocomplete="current-password"
-                                    />
-
-                                    <InputError class="mt-2" :message="form.errors.password" />
-                                </div>
-
-                                <div class="block mt-4">
-                                    <label class="flex items-center">
-                                        <Checkbox name="remember" v-model:checked="form.remember" />
-                                        <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center justify-end mt-4">
-                                    <Link
-                                        :href="route('password.request')"
-                                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        Forgot your password?
-                                    </Link>
-
-                                    <PrimaryButton class="ml-4" @click.prevent="addOrder" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                        Log in
-                                    </PrimaryButton>
-                                </div>
-                            </form>
                         </div>
                     </Modal>
                 </form>

@@ -10,7 +10,7 @@ import {Link} from "@inertiajs/inertia-vue3";
     <div class="pb-6 flex text-slate-900">
         <!-- Logo -->
         <div class="shrink-0">
-            <Link :href="$page.props.homeUrl">
+            <Link :href="route('home')">
                 <ApplicationLogo
                     class="block h-9 w-auto fill-current"
                 />

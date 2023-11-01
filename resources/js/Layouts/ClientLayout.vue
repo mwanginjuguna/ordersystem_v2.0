@@ -1,18 +1,16 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/inertia-vue3';
 import ClientSidebar from '../Components/ClientSidebar.vue'
 import FlashMessage from "../Components/FlashMessage.vue";
+import FooterGlobal from "../Components/FooterGlobal.vue";
 
 const showingNavigationDropdown = ref(false);
 const showingSidebar = ref(false);
 
-const currentYear = ref(new Date().getFullYear());
 </script>
 
 <template>
@@ -66,13 +64,13 @@ const currentYear = ref(new Date().getFullYear());
 
                                     <!-- Navigation Links -->
                                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                        <NavLink :href="$page.props.homeUrl">
+                                        <NavLink :href="route('home')" :active="route().current('home')">
                                             Home
                                         </NavLink>
                                         <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                             Dashboard
                                         </NavLink>
-                                        <NavLink :href="$page.props.homeUrl+`services`">
+                                        <NavLink :href="`#`">
                                             Services
                                         </NavLink>
                                     </div>
@@ -207,96 +205,9 @@ const currentYear = ref(new Date().getFullYear());
 
                     </div>
                 </div>
-                <!--footer-->
-                <footer class="col-span-5 mt-6 shadow-sm shadow-fuchsia-700 rounded-md">
-                    <div class="bg-fuchsia-100 md:col-span-6 text-black text-sm py-4">
-                        <div class="grid lg:grid-cols-3 p-6 place-content-center">
-                            <div class="p-2 px-3 col-span-1">
-                                <h2 class="font-bold underline underline-2 pb-1">
-                                    About Us
-                                </h2>
-                                <ul class="p-2">
-                                    <li>
-                                        <Link :class="`hover:text-blue-500 hover:underline underline-offset-4`" :href="$page.props.homeUrl+`about-us`">
-                                            About
-                                        </Link>
-                                    </li>
-
-                                    <li>
-                                        <Link :class="`hover:text-blue-500 hover:underline underline-offset-4`" :href="route(`dashboard`)">
-                                            My Orders
-                                        </Link>
-                                    </li>
-
-                                    <li>
-                                        <Link :class="`hover:text-blue-500 hover:underline underline-offset-4`" :href="route('orders.new')">
-                                            New Order
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="p-2 px-3 col-span-1">
-                                <h3 class="font-bold underline underline-2 pb-1">
-                                    Our Services
-                                </h3>
-                                <ul class="p-2">
-                                    <li>
-                                        <Link :class="`hover:text-blue-500 hover:underline underline-offset-4`" :href="$page.props.homeUrl+`services`">
-                                            Coursework Help
-                                        </Link>
-                                    </li>
-
-                                    <li>
-                                        <Link :class="`hover:text-blue-500 hover:underline underline-offset-4`" :href="$page.props.homeUrl+`services`">
-                                            Report Writing
-                                        </Link>
-                                    </li>
-
-                                    <li>
-                                        <Link :class="`hover:text-blue-500 hover:underline underline-offset-4`" :href="$page.props.homeUrl">
-                                            Case Study Writing
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="p-2 px-3 col-span-1">
-                                <h3 class="font-bold underline underline-2 pb-1">
-                                    Contact Us
-                                </h3>
-                                <ul class="p-2 flex flex-col gap-y-2">
-                                    <li class="">
-                                        <Link :class="`hover:text-blue-500 hover:underline underline-offset-4`" :href="`mailto:essaysresearch70@gmail.com`">
-                                            essaysresearch70@gmail.com
-                                        </Link>
-                                    </li>
-
-                                    <li class="mt-2">
-                                        <Link :href="`https://tawk.to/chat/63c8802dc2f1ac1e202e6df2/1gn3j9djh`" class="p-2 px-3 w-fit hover:text-slate-50 text-slate-200 font-semibold bg-purple-500 hover:bg-purple-600 border rounded shadow-md hover:underline underline-offset-4">
-                                            Chat with an expert
-                                        </Link>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 mx-auto max-w-3xl">
-                            <div class="flex justify-between px-3 text-xs">
-                                <p class="">Copyright Protected. Property of {{ $page.props.websiteName }} - {{ currentYear }}.</p>
-                                <Link
-                                    :href="`https://mwangikanothe.com/#contact`"
-                                    :target="`_blank`"
-                                    class="text-green-300 rounded drop-shadow-sm hover:underline underline-offset-4">
-                                    Developer
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
             </div>
-
+            <!--footer-->
+            <FooterGlobal />
         </div>
     </div>
 </template>

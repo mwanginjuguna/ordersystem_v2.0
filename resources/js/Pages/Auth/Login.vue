@@ -13,8 +13,8 @@ defineProps({
 });
 
 const form = useForm({
-    email: '',
-    password: '',
+    email: 'johndoe@ordersystem.com',
+    password: 'johndoe1',
     remember: false,
 });
 
@@ -44,6 +44,8 @@ const submit = () => {
                         autofocus
                         autocomplete="username"
                     />
+                    <p class="text-xs text-slate-600">Admin demo: admin@ordersystem.com</p>
+                    <p class="text-xs text-slate-600">User demo: johndoe@ordersystem.com</p>
 
                     <InputError class="mt-2" :message="form.errors.email" />
                 </div>
@@ -58,6 +60,8 @@ const submit = () => {
                         required
                         autocomplete="current-password"
                     />
+                    <p class="text-xs text-slate-600">Admin password: admindemo1</p>
+                    <p class="text-xs text-slate-600">Client password: johndoe1</p>
 
                     <InputError class="mt-2" :message="form.errors.password" />
                 </div>

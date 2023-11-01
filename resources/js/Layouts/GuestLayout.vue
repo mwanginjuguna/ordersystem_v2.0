@@ -1,10 +1,10 @@
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/inertia-vue3';
 import { ref, onMounted } from 'vue'
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import FooterGlobal from "../Components/FooterGlobal.vue";
 
-const currentYear = ref(new Date().getFullYear());
 const showingNavigationDropdown = ref(false);
 const scrollY = ref(0)
 const imgClass = ref('max-w-[4rem]')
@@ -44,20 +44,20 @@ defineProps({
                             <div class="flex gap-x-2 md:gap-x-6 place-self-center">
                                 <!-- Logo -->
                                 <div class="shrink-0 flex items-center">
-                                    <Link :href="$page.props.homeUrl">
+                                    <Link :href="route('home')">
                                         <ApplicationLogo
                                             class="block h-9 w-auto fill-current text-gray-800"
                                         />
                                     </Link>
                                 </div>
 
-                                <Link :href="$page.props.homeUrl+`services`" class="p-1 hover:underline underline-offset-4 decoration-dashed">
+                                <Link :href="`#`" class="p-1 hover:underline underline-offset-4 decoration-dashed">
                                     Services
                                 </Link>
-                                <Link :href="$page.props.homeUrl+`latest/blog`" class="p-1 hover:underline underline-offset-4 decoration-dashed">
+                                <Link :href="`#`" class="p-1 hover:underline underline-offset-4 decoration-dashed">
                                     Samples
                                 </Link>
-                                <Link :href="$page.props.homeUrl+`about-us`" class="p-1 hover:underline underline-offset-4 decoration-dashed">
+                                <Link :href="`#`" class="p-1 hover:underline underline-offset-4 decoration-dashed">
                                     About Us
                                 </Link>
                             </div>
@@ -186,81 +186,7 @@ defineProps({
             <slot />
 
             <!--footer-->
-            <footer class="mt-6 lg:mt-12 border-t pb-6">
-                <div class="grid md:grid-cols-3 gap-6 divide-y md:divide-y-0 max-w-5xl mx-auto p-6">
-                    <div class="pt-3 text-slate-600 font-medium text-sm md:text-base flex flex-col gap-y-3">
-                        <p class="pb-6 font-bold text-lg text-slate-700">Company</p>
-
-                        <Link :href="$page.props.homeUrl+`about-us`" class="hover:text-blue-500 hover:underline underline-offset-4">
-                            What We Do
-                        </Link>
-
-                        <Link :href="$page.props.homeUrl" class="hover:text-blue-500 hover:underline underline-offset-4">
-                            Home
-                        </Link>
-
-                        <Link :href="$page.props.homeUrl+`latest/blog`" class="hover:text-blue-500 hover:underline underline-offset-4">
-                            Blog
-                        </Link>
-
-                        <Link :href="`/orders/new`" class="hover:text-blue-500 hover:underline underline-offset-4">
-                            Order Now
-                        </Link>
-
-                    </div>
-
-                    <div class="pt-3 text-slate-600 font-medium text-sm md:text-base flex flex-col gap-y-3">
-                        <p class="pb-6 font-bold text-lg text-slate-700">Links</p>
-
-                        <Link :href="$page.props.homeUrl+`latest/blog`" class="hover:text-blue-500 hover:underline underline-offset-4">
-                            Sample Case Studies
-                        </Link>
-
-                        <Link :href="`/orders/new`" class="hover:text-blue-500 hover:underline underline-offset-4">
-                            Write My Case Study
-                        </Link>
-
-                        <Link :href="$page.props.homeUrl+`services`" class="hover:text-blue-500 hover:underline underline-offset-4">
-                            Case Study Assignment Help
-                        </Link>
-
-                        <Link :href="$page.props.homeUrl+`faq`" class="hover:text-blue-500 hover:underline underline-offset-4">
-                            FAQ
-                        </Link>
-
-                    </div>
-
-                    <div class="pt-3 md:pl-5 text-slate-600 font-medium text-sm md:text-base flex flex-col gap-y-3">
-                        <p class="pb-6 font-bold text-lg text-slate-700">Contact Us</p>
-
-                        <Link :href="`mailto:essaysresearch70@gmail.com`" class="hover:text-blue-500 hover:underline underline-offset-4">
-                            essaysresearch70@gmail.com
-                        </Link>
-
-                        <Link :href="route('orders.new')" class="hover:text-blue-500 underline underline-offset-4">
-                            Place an Order
-                        </Link>
-
-                        <!--// integrate messaging/chat function-->
-                        <Link :href="`https://tawk.to/chat/63c8802dc2f1ac1e202e6df2/1gn3j9djh`" disabled class="p-2 px-3 w-fit hover:text-slate-50 text-slate-200 font-semibold bg-purple-500 hover:bg-purple-600 border rounded shadow-md hover:underline underline-offset-4">
-                            Chat with an expert
-                        </Link>
-
-                    </div>
-                </div>
-                <div class="mt-6 mx-auto max-w-3xl">
-                    <div class="flex justify-between px-3 text-xs">
-                        <p class="">Copyright Protected. Property of <Link :href="$page.props.homeUrl">{{ $page.props.websiteName }}</Link> - {{ currentYear }}.</p>
-                        <Link
-                            :href="`https://mwangikanothe.com/#contact`"
-                            :target="`_blank`"
-                            class="text-green-500 rounded drop-shadow-sm hover:underline underline-offset-4">
-                            Developed by Kanothe
-                        </Link>
-                    </div>
-
-                </div>
-            </footer>
+            <FooterGlobal />
         </div>
     </div>
 </template>
